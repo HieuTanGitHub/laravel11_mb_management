@@ -1,0 +1,112 @@
+@extends('layout')
+
+@section('content')
+    <div class="container mt-4">
+        <h4 class="text-center mb-4 fw-bold">THÊM MỚI GIAO DỊCH RÚT TIỀN</h4>
+        <div class="mb-3">
+            <a href="{{ route('giaodich.ruttien') }}" class="btn btn-primary">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+        </div>
+        @if (session('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                {{ session('success') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+
+        @if (session('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                {{ session('error') }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        @endif
+        <form action="{{ route('giaodich.ruttien.store') }}" method="POST">
+            @csrf
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label>Mã giao dịch</label>
+                    <input type="text" class="form-control" name="MaGDRutTien" readonly value="{{ rand(0000, 9999) }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Ngày tạo</label>
+                    <input type="text" class="form-control" name="NgayTao" readonly value="{{ \Carbon\Carbon::now() }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Người tạo</label>
+                    <input type="text" class="form-control" name="MaNV" readonly
+                        value="{{ Session::get('TenDangNhap') }}">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Điểm giao dịch</label>
+                    <input type="text" class="form-control" name="ViTri" readonly value="Tại Quầy">
+                </div>
+            </div>
+
+            <h6 class="mt-4 fw-bold">Thông tin giao dịch</h6>
+
+            <div class="row g-3">
+                <div class="col-md-3">
+                    <label>Số tài khoản *</label>
+                    <select name="SoTK" class="form-control chonsotaikhoan">
+                        <option>---Chọn tài khoản---</option>
+                        @foreach ($khachhang as $key => $kh)
+                            <option value="{{ $kh->khach?->SoTK }}">{{ $kh->khach?->SoTK }}</option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Tên chủ tài khoản</label>
+                    <input type="text" class="form-control" id="TenKH" disabled>
+                </div>
+
+                <div class="col-md-2">
+                    <label>CCCD</label>
+                    <input type="text" class="form-control" id="CCCD" disabled>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Số thẻ</label>
+                    <input type="text" class="form-control" id="SoThe" disabled>
+                </div>
+
+                <div class="col-md-2">
+                    <label>Số dư tài khoản</label>
+                    <input type="text" class="form-control" id="SoDuTK" disabled>
+                </div>
+
+                <div class="col-md-3">
+                    <label>Số tiền rút</label>
+                    <input type="number" min="1000000" value="1000000" name="SoTienRut" placeholder=">1tr"
+                        class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Phí giao dịch</label>
+                    <input type="text" min="0" name="PhiGiaoDich" value="10000" placeholder="0"
+                        class="form-control">
+                </div>
+
+                <div class="col-md-6">
+                    <label>Nội dung</label>
+                    <textarea class="form-control" name="NoiDung" rows="3">Giao Dịch Rút Tiền Tại Quầy.</textarea>
+                </div>
+            </div>
+
+            <div class="mt-4 text-end">
+                <a href="{{ route('giaodich.ruttien') }}" class="btn btn-danger">
+                    Hủy
+                </a>
+                <button type="submit" class="btn btn-primary">Tạo mới</button>
+            </div>
+        </form>
+    </div>
+@endsection
