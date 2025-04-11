@@ -147,7 +147,7 @@
                     </select>
                 </div>
 
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label class="form-label">Loại Khách Hàng</label>
                     <select name="MaLoaiKH" class="form-control">
                         @foreach ($loaikhachhang as $loaikh)
@@ -157,8 +157,27 @@
                             </option>
                         @endforeach
                     </select>
+                </div> --}}
+                <div class="col-md-6">
+                    <label class="form-label">Loại Thẻ</label>
+                    <select name="LoaiThe" class="form-control">
+                        @foreach ($loaithe as $key => $loaithe)
+                            <option {{ $khachhang->khach->LoaiThe == $loaithe->MaLoaiThe ? 'selected' : '' }}
+                                value="{{ $loaithe->MaLoaiThe }}">{{ $loaithe->TenLoaiThe }}</option>
+                        @endforeach
+                    </select>
+                    @error('LoaiKH')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
                 </div>
-
+                <div class="col-md-6">
+                    <label class="form-label">Số Thẻ</label>
+                    <input type="text" name="SoThe" readonly value="{{ $khachhang->khach->SoThe }}"
+                        class="form-control">
+                    @error('SoThe')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
                 <div class="col-md-6">
                     <label class="form-label">Trạng Thái</label>
                     <select name="TrangThai" class="form-control">

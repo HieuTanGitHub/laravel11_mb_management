@@ -22,7 +22,9 @@ class tblkhachhang extends Model
         'MaLoaiKH',
         'SoTK',
         'MaLoaiTK',
-        'TheCung'
+        'TheCung',
+        'LoaiThe',
+        'SoThe'
     ]; // Define mass-assignable fields
     public function taiKhoans()
     {

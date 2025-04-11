@@ -10,7 +10,7 @@ use App\Models\tblkhachhang;
 use App\Models\tblquanhuyen;
 use App\Models\tblphuongxa;
 use App\Models\tbltinhthanhpho;
-
+use App\Models\tblloaithe;
 use Session;
 
 class KhachHangCaNhanController extends Controller
@@ -51,10 +51,11 @@ class KhachHangCaNhanController extends Controller
      */
     public function create()
     {
+        $loaithe = tblloaithe::all();
         $city = tbltinhthanhpho::all();
         $loaikhachhang = tblloaikhachhang::all();
         $loaitaikhoan = tblloaitaikhoan::all();
-        return view('khachhangcanhan.create', compact('loaitaikhoan', 'loaikhachhang', 'city'));
+        return view('khachhangcanhan.create', compact('loaitaikhoan', 'loaikhachhang', 'city', 'loaithe'));
     }
 
     /**
@@ -73,12 +74,14 @@ class KhachHangCaNhanController extends Controller
             'Email' => 'required|email|unique:tblkhachhang,Email',
             'NgaySinh' => 'required|date',
             'SoTK' => 'required|string|max:255',
-            'MaLoaiKH' => 'required|string|max:255',
+            // 'MaLoaiKH' => 'required|string|max:255',
             'MaLoaiTK' => 'required',
             'Thanhpho' => 'required',
             'Quanhuyen' => 'required',
             'Xaphuong' => 'required',
             'TheCung' => 'required',
+            'SoThe' => 'required|string|max:255',
+            'LoaiThe' => 'required|string|max:255',
             'SDT' => 'required|digits_between:10,11|unique:tblkhachhang,SDT',
         ]);
         // Xử lý file tải lên
@@ -103,10 +106,12 @@ class KhachHangCaNhanController extends Controller
         $khachHang->NgaySinh = $request->NgaySinh;
         $khachHang->DiaChi = $request->Thanhpho . ' ' . $request->Quanhuyen . ' ' . $request->Xaphuong;
         $khachHang->SDT = $request->SDT;
-        $khachHang->MaLoaiKH = $request->MaLoaiKH;
+        // $khachHang->MaLoaiKH = $request->MaLoaiKH;
         $khachHang->MaLoaiTK = $request->MaLoaiTK;
         $khachHang->SoTK = $request->SoTK;
         $khachHang->TheCung = $request->TheCung;
+        $khachHang->LoaiThe = $request->LoaiThe;
+        $khachHang->SoThe = $request->SoThe;
 
         $khachHang->save();
         return redirect()->route('khachhangcanhan.index')->with('success', 'Thêm khách hàng thành công!');
@@ -151,6 +156,7 @@ class KhachHangCaNhanController extends Controller
     public function edit(string $id)
     {
 
+        $loaithe = tblloaithe::all();
         $city = tbltinhthanhpho::all();
         $loaikhachhang = tblloaikhachhang::all();
         $loaitaikhoan = tblloaitaikhoan::all();
@@ -172,7 +178,7 @@ class KhachHangCaNhanController extends Controller
             }
         }
 
-        return view('khachhangcanhan.edit', compact('city', 'khachhang', 'loaikhachhang', 'loaitaikhoan', 'thanhpho', 'quanhuyen', 'xaphuong'));
+        return view('khachhangcanhan.edit', compact('loaithe', 'city', 'khachhang', 'loaikhachhang', 'loaitaikhoan', 'thanhpho', 'quanhuyen', 'xaphuong'));
     }
 
     /**
@@ -195,7 +201,9 @@ class KhachHangCaNhanController extends Controller
             'Email' => 'required|email|unique:tblkhachhang,Email,' . $khachHang->MaKH . ',MaKH',
             'NgaySinh' => 'required|date',
             'SoTK' => 'required|string|max:255',
-            'MaLoaiKH' => 'required|string|max:255',
+            // 'MaLoaiKH' => 'required|string|max:255',
+            'SoThe' => 'required|string|max:255',
+            'LoaiThe' => 'required|string|max:255',
             'MaLoaiTK' => 'required',
             'TheCung' => 'required',
             'Thanhpho' => 'required',
@@ -229,10 +237,12 @@ class KhachHangCaNhanController extends Controller
             'NgaySinh' => $request->NgaySinh,
             'DiaChi' =>    $khachHang->DiaChi = $request->Thanhpho . ' ' . $request->Quanhuyen . ' ' . $request->Xaphuong,
             'SDT' => $request->SDT,
-            'MaLoaiKH' => $request->MaLoaiKH,
+            // 'MaLoaiKH' => $request->MaLoaiKH,
             'MaLoaiTK' => $request->MaLoaiTK,
             'SoTK' => $request->SoTK,
             'TheCung' => $request->TheCung,
+            'SoThe' => $request->SoThe,
+            'LoaiThe' => $request->LoaiThe,
         ]);
 
         return redirect()->route('khachhangcanhan.index')->with('success', 'Cập nhật khách hàng thành công!');

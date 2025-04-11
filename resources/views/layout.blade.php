@@ -163,14 +163,15 @@
                 <i class="fa-solid fa-chevron-down"></i>
             </a>
             @php
-                $active_baocao = in_array(Request::segment(1), ['baocaokhachhang', 'baocaonhanvien']) ? 'show' : '';
+                $active_baocao = in_array(Request::segment(1), ['baocaotongquan']) ? 'show' : '';
             @endphp
             <!-- Dropdown Items -->
             <div class="collapse menuQL {{ $active_baocao }}" id="menuBaocao">
                 <nav class="nav flex-column ms-3">
-                    <a class="nav-link" href="#"><i class="fa-regular fa-circle"></i> Báo cáo khách hàng</a>
-                    <a class="nav-link" href="#"><i class="fa-regular fa-circle"></i> Báo cáo nhân viên</a>
-
+                    <a class="nav-link {{ Request::segment(1) == 'baocaotongquan' ? 'active' : '' }}"
+                        href="{{ route('baocaotongquan') }}">
+                        <i class="fa-solid fa-chart-pie"></i> Báo cáo tổng quan
+                    </a>
                 </nav>
             </div>
             <a class="nav-link {{ Request::segment(1) == 'nhanvien' ? 'active' : '' }}"
@@ -216,7 +217,7 @@
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
@@ -250,6 +251,8 @@
                     <tr><th>Số tài khoản</th><td>${kh.SoTK}</td></tr>
                     <tr><th>Mã loại tài khoản</th><td>${kh.MaLoaiTK}</td></tr>
                     <tr><th>Thẻ Cứng</th><td>${kh.TheCung}</td></tr>
+                    <tr><th>Số thẻ</th><td>${kh.SoThe}</td></tr>
+                    <tr><th>Loại thẻ</th><td>${kh.LoaiThe}</td></tr>
                     <tr><th>CCCD</th><td>${kh.CCCD}</td></tr>
                     <tr><th>Email</th><td>${kh.Email}</td></tr>
                     <tr><th>SDT</th><td>${kh.SDT}</td></tr>
@@ -573,6 +576,7 @@
             });
         });
     </script>
+    @yield('scripts');
 </body>
 
 </html>

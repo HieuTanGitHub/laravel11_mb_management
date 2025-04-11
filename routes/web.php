@@ -20,6 +20,7 @@ use App\Http\Controllers\TaiKhoanController;
 use App\Http\Controllers\GiaoDichController;
 use App\Http\Controllers\AuthController;
 use App\Http\Middleware\CheckLogin;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 // Route::get('/', function () {
 //     return Inertia::render('Welcome', [
@@ -155,5 +156,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/get-thong-tin-khach/{id}', [GiaoDichController::class, 'getThongTinKhach']);
     Route::post('/storethanhtoanhoadon', [GiaoDichController::class, 'storethanhtoanhoadon'])->name('giaodich.thanhtoanhoadon.store');
     Route::get('/giaodich/thanhtoan/chitiet', [GiaoDichController::class, 'showChiTietThanhToan'])->name('giaodich.thanhtoan.chitiet');
+    //báo cáo
+    Route::get('/baocaotongquan', [DashboardController::class, 'baocaotongquan'])->name('baocaotongquan');
+    Route::get('/load-giao-dich-ngay', [DashboardController::class, 'loadGiaoDichTrongNgay']);
 });
 require __DIR__ . '/auth.php';

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 10, 2025 at 03:14 PM
+-- Generation Time: Apr 11, 2025 at 10:22 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -149,7 +149,7 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('3SuksRMHMZauNmHB3YznBz719JXQeEGVprIUCsuK', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiYk9tR2w1Sll2R1VuTWNMQnZIMmg5MGZ6V1gzZFU5bExSTmwyN2F6SSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzM6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC90aGVtZ3VpdGllbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTE6IlRlbkRhbmdOaGFwIjtzOjEzOiJoaWV1dHJ1b25nMTIzIjtzOjQ6Ik1hTlYiO3M6NToiTlYxMjQiO30=', 1744290836);
+('5uoGIQdVmLPJ7Z9jZPvlHqV6P23dd0P6JHAuKt1k', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSjVVWWtPYW96SmhVZHM4blQwVEVYbVRid3R5QTU2cDJIM1Z4TmVucSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYW9jYW90b25ncXVhbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTE6IlRlbkRhbmdOaGFwIjtzOjEzOiJoaWV1dHJ1b25nMTIzIjtzOjQ6Ik1hTlYiO3M6NToiTlYxMjQiO30=', 1744359609);
 
 -- --------------------------------------------------------
 
@@ -217,18 +217,23 @@ CREATE TABLE `tblkhachhang` (
   `Email` varchar(50) NOT NULL,
   `DiaChi` varchar(80) NOT NULL,
   `NgaySinh` datetime NOT NULL,
-  `MaLoaiKH` varchar(50) NOT NULL,
+  `MaLoaiKH` varchar(50) DEFAULT NULL,
   `SoTK` varchar(50) NOT NULL,
   `MaLoaiTK` varchar(50) NOT NULL,
-  `TheCung` varchar(50) NOT NULL
+  `TheCung` varchar(50) NOT NULL,
+  `SoThe` varchar(30) NOT NULL,
+  `LoaiThe` varchar(30) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblkhachhang`
 --
 
-INSERT INTO `tblkhachhang` (`MaKH`, `TenKH`, `SDT`, `CCCD`, `Email`, `DiaChi`, `NgaySinh`, `MaLoaiKH`, `SoTK`, `MaLoaiTK`, `TheCung`) VALUES
-('KHCN4383', 'Nguyen Van A', '0932023992', '075094231122', 'tanhieu70@yahoo.com', '04 044 01387', '2025-04-10 00:00:00', 'ML3', '54534534', 'LTK1', 'có');
+INSERT INTO `tblkhachhang` (`MaKH`, `TenKH`, `SDT`, `CCCD`, `Email`, `DiaChi`, `NgaySinh`, `MaLoaiKH`, `SoTK`, `MaLoaiTK`, `TheCung`, `SoThe`, `LoaiThe`) VALUES
+('KHCN2554', 'Hoàng A Kiều', '0932023923', '075345233432', 'hoangaminhkieu@gmail.com', '04 050 01645', '2025-04-11 00:00:00', 'ML3', '4567666', 'LTK1', 'có', '', ''),
+('KHCN3361', 'Hoàng A Ka', '0932023119', '125094231113', 'hoangaka@gmail.com', '12 108 03523', '2025-04-11 00:00:00', NULL, '77534534', 'LTK1', 'có', '2459107171937908', 'LT1'),
+('KHCN6908', 'Hoàng A Lam', '0932023912', '075094233487', 'hoangalam@gmail.com', '06 063 02002', '2025-04-12 00:00:00', 'ML3', '54534511', 'LTK1', 'có', '', ''),
+('KHCN8931', 'Hoàng A Minh', '0932023991', '075094233432', 'hoangaminh@gmail.com', '01 018 00553', '2025-04-10 00:00:00', 'ML3', '7543', 'LTK1', 'có', '', '');
 
 -- --------------------------------------------------------
 
@@ -250,7 +255,10 @@ CREATE TABLE `tblkhachhangcanhan` (
 --
 
 INSERT INTO `tblkhachhangcanhan` (`MaKH`, `NgheNghiep`, `DoanhThu`, `HoSoCaNhan`, `NgayTao`, `MaNV`) VALUES
-('KHCN4383', 'Công Nhân May', 5000000, NULL, '2025-04-10 08:49:21', 'NV124');
+('KHCN2554', 'Công Nhân', 6900000, NULL, '2025-04-11 07:46:19', 'NV124'),
+('KHCN3361', 'Công Nhân May', 3500000, NULL, '2025-04-11 07:57:37', 'NV124'),
+('KHCN6908', 'Nhân Viên', 6900000, NULL, '2025-04-11 07:48:09', 'NV124'),
+('KHCN8931', 'Công Nhân', 6900000, NULL, '2025-04-10 16:33:57', 'NV124');
 
 -- --------------------------------------------------------
 
@@ -401,7 +409,7 @@ CREATE TABLE `tblnhanvien` (
 --
 
 INSERT INTO `tblnhanvien` (`id`, `MaNV`, `HoTen`, `SDT`, `TenDangNhap`, `MatKhau`, `Email`, `PhanQuyen`, `MaPB`, `MaCV`) VALUES
-(1, 'NV123', 'Hiếu Trương', '0932023992', 'hieutruong', '$2y$12$8nMMaTpjtPON0YpuU9qscedBt39lmbOsapjTtzfw4eQX5NIl/broC', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV1'),
+(1, 'NV123', 'Hiếu Trương 2', '0932023992', 'hieutruong', '$2y$12$8nMMaTpjtPON0YpuU9qscedBt39lmbOsapjTtzfw4eQX5NIl/broC', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV1'),
 (2, 'NV124', 'Hiếu Trương', '0932023992', 'hieutruong123', '$2y$12$joD4uG6tAAonLd4Mffo4suNojnBvyJGouAJcRw7E0WNi51x1c8C1m', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV2');
 
 -- --------------------------------------------------------
@@ -446,9 +454,8 @@ CREATE TABLE `tblruttien` (
 --
 
 INSERT INTO `tblruttien` (`MaGDRutTien`, `SoTienRut`, `PhiGiaoDich`, `SoDuSauRut`, `NoiDung`, `NgayTao`, `MaNV`, `ViTri`, `SoTK`, `LoaiGiaoDich`) VALUES
-(1510, '1000000', '10000', '14999999', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-10 11:06:21', 'NV124', 'Tại Quầy', '54534534', 'Rút Tiền'),
-(7766, '2000000', '20000', '11999999', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-10 11:31:34', 'NV124', 'Tại Quầy', '54534534', 'Rút Tiền'),
-(8078, '1000000', '10000', '13999999', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-10 11:18:19', 'NV124', 'Tại Quầy', '54534534', 'Rút Tiền');
+(7268, '1000000', '10000', '68990000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-10 16:34:47', 'NV124', 'Tại Quầy', '7543', 'Rút Tiền'),
+(9694, '1000000', '10000', '67980000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 06:55:08', 'NV124', 'Tại Quầy', '7543', 'Rút Tiền');
 
 -- --------------------------------------------------------
 
@@ -473,7 +480,7 @@ CREATE TABLE `tbltaikhoan` (
 --
 
 INSERT INTO `tbltaikhoan` (`SoTK`, `SoDuTK`, `NgayMo`, `NgayDong`, `TrangThai`, `MaLoaiThe`, `MaNV`, `MaKH`, `NgayTao`) VALUES
-('54534534', '21807556', '2025-04-03 00:00:00', '2025-04-05 00:00:00', 1, 'LT1', 'NV123', '123', '2025-04-03 00:00:00');
+('7543', '67845000', '2025-04-10 00:00:00', '2030-04-10 00:00:00', 1, 'LT1', 'NV123', 'KHCN8931', '2025-04-10 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -504,7 +511,8 @@ CREATE TABLE `tblthanhtoanhoadon` (
 --
 
 INSERT INTO `tblthanhtoanhoadon` (`MaGDThanhToan`, `NgayTao`, `MaNV`, `DiemGD`, `LoaiHD`, `NCC`, `NganHang`, `SoTK`, `SoHD`, `SoTienThanhToan`, `PhiGiaoDich`, `TongTien`, `SoDuSauThanhToan`, `NoiDung`, `LoaiGiaoDich`) VALUES
-(4105, '2025-04-10 20:01:42', 'NV124', 'Tại Quầy', 'dien', 'EVN - Tổng Công Ty Điện Lực VN', 'TP Bank', '54534534', 'SHD5958', '125000', '3000', '128000', '21807556', 'Thanh toán hóa đơn.', 'Thanh toán hóa đơn');
+(4105, '2025-04-10 20:01:42', 'NV124', 'Tại Quầy', 'dien', 'EVN - Tổng Công Ty Điện Lực VN', 'TP Bank', '54534534', 'SHD5958', '125000', '3000', '128000', '21807556', 'Thanh toán hóa đơn.', 'Thanh toán hóa đơn'),
+(6236, '2025-04-11 14:14:16', 'NV124', 'Tại Quầy', 'dien', 'EVNHCMC - Điện Lực TP HCM', 'TP Bank', '7543', 'SHD2727', '125000', '10000', '135000', '67845000', 'dasdas', 'Thanh toán hóa đơn');
 
 -- --------------------------------------------------------
 
@@ -529,7 +537,7 @@ CREATE TABLE `tblthe` (
 --
 
 INSERT INTO `tblthe` (`SoThe`, `NgayMo`, `NgayHetHan`, `NgayDong`, `MaLoaiThe`, `MaNV`, `MaKH`, `SoTK`, `NgayTao`) VALUES
-('767567567', '2025-04-03 00:00:00', '2025-04-17 00:00:00', '2025-04-16 00:00:00', 'LT1', 'NV123', 'NV123', '54534534', '2025-04-25 00:00:00');
+('2022', '2025-04-10 00:00:00', '2030-04-10 00:00:00', '2030-04-10 00:00:00', 'LT1', 'NV123', 'KHCN8931', '7543', '2025-04-10 16:34:14');
 
 -- --------------------------------------------------------
 
@@ -12783,13 +12791,13 @@ ALTER TABLE `tblnhanvien`
 -- AUTO_INCREMENT for table `tblruttien`
 --
 ALTER TABLE `tblruttien`
-  MODIFY `MaGDRutTien` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8079;
+  MODIFY `MaGDRutTien` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9695;
 
 --
 -- AUTO_INCREMENT for table `tblthanhtoanhoadon`
 --
 ALTER TABLE `tblthanhtoanhoadon`
-  MODIFY `MaGDThanhToan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4106;
+  MODIFY `MaGDThanhToan` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6237;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -169,6 +169,12 @@ button.btn.btn-secondary {
     color: #fff;
 
 }
+input[readonly] {
+    background-color: #e9ecef;  /* màu xám nhạt giống disabled */
+    pointer-events: none;       /* không cho thao tác */
+    opacity: 1;                 /* giữ màu chữ rõ */
+    color: #495057;             /* màu chữ xám */
+}
 .table th,
 .table td,
 .table thead tr {

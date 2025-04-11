@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\tblkhachhang;
 
+
 class KhachHangController extends Controller
 {
     /**
@@ -24,6 +25,7 @@ class KhachHangController extends Controller
      */
     public function create()
     {
+
         $khachhangs = tblkhachhang::all();
         return view('khachhang.create', compact('khachhangs'));
     }

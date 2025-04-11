@@ -121,11 +121,12 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Số Tài Khoản</label>
-                    <input type="text" name="SoTK" class="form-control" readonly value="{{ rand(0000, 9999) }}">
+                    <input type="text" name="SoTK" class="form-control">
                     @error('SoTK')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
                 <div class="col-md-6 check-form">
                     <label class="form-label">Thẻ cứng</label>
                     <div class="form-check">
@@ -154,7 +155,7 @@
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
-                <div class="col-md-6">
+                {{-- <div class="col-md-6">
                     <label class="form-label">Loại Khách Hàng</label>
                     <select name="MaLoaiKH" class="form-control">
                         @foreach ($loaikhachhang as $key => $loaikh)
@@ -162,6 +163,25 @@
                         @endforeach
                     </select>
                     @error('LoaiKH')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div> --}}
+                <div class="col-md-6">
+                    <label class="form-label">Loại Thẻ</label>
+                    <select name="LoaiThe" class="form-control">
+                        @foreach ($loaithe as $key => $loaithe)
+                            <option value="{{ $loaithe->MaLoaiThe }}">{{ $loaithe->TenLoaiThe }}</option>
+                        @endforeach
+                    </select>
+                    @error('LoaiKH')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="col-md-6">
+                    <label class="form-label">Số Thẻ</label>
+                    <input type="text" name="SoThe" readonly
+                        value="{{ old('SoThe', rand(1000_0000_0000_0000, 9999_9999_9999_9999)) }}" class="form-control">
+                    @error('SoThe')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
