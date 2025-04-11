@@ -12,15 +12,20 @@
 
         <div class="mb-3">
             <label class="form-label">Số Thẻ</label>
-            <input type="text" name="SoThe" class="form-control" value="{{ old('SoThe') }}" required>
+            <input type="text" name="SoThe" class="form-control" readonly value="{{ rand(0000, 9999) }}" required>
             @error('SoThe')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
-
+        @php
+            $ngayTao = \Carbon\Carbon::now()->format('Y-m-d');
+            $ngayMo = \Carbon\Carbon::now()->format('Y-m-d');
+            $ngayDong = \Carbon\Carbon::now()->addYears(5)->format('Y-m-d');
+            $ngayHetHan = \Carbon\Carbon::now()->addYears(5)->format('Y-m-d');
+        @endphp
         <div class="mb-3">
             <label class="form-label">Ngày Mở</label>
-            <input type="date" name="NgayMo" class="form-control" value="{{ old('NgayMo') }}" required>
+            <input type="date" name="NgayMo" class="form-control" value="{{ old('NgayMo', $ngayMo) }}" required>
             @error('NgayMo')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
@@ -28,7 +33,8 @@
 
         <div class="mb-3">
             <label class="form-label">Ngày Hết Hạn</label>
-            <input type="date" name="NgayHetHan" class="form-control" value="{{ old('NgayHetHan') }}" required>
+            <input type="date" name="NgayHetHan" class="form-control" value="{{ old('NgayDong', $ngayHetHan) }}"
+                required>
             @error('NgayHetHan')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
@@ -36,7 +42,7 @@
 
         <div class="mb-3">
             <label class="form-label">Ngày Đóng (nếu có)</label>
-            <input type="date" name="NgayDong" class="form-control" value="{{ old('NgayDong') }}">
+            <input type="date" name="NgayDong" class="form-control" value="{{ old('NgayDong', $ngayDong) }}">
         </div>
 
         <div class="mb-3">
@@ -62,20 +68,34 @@
             </select>
         </div>
 
-        <div class="mb-3">
-            <label class="form-label">Khách Hàng (nếu có)</label>
-            <select name="MaKH" class="form-control">
-                <option value="">-- Chọn Khách Hàng --</option>
-                @foreach ($khachhangs as $kh)
-                    <option value="{{ $kh->MaKH }}">{{ $kh->TenKH }}</option>
-                @endforeach
-            </select>
-        </div>
+        <!-- Mã khách hàng -->
 
-        <div class="mb-3">
-            <label class="form-label">Số Tài Khoản</label>
-            <input type="text" name="SoTK" class="form-control" value="{{ old('SoTK') }}">
-        </div>
+        <label class="form-label">Khách hàng</label>
+        <select name="MaKH" id="maKH" class="form-control" required>
+            <option value="">Chọn mã khách hàng</option>
+            @foreach ($khachhangs as $kh)
+                <option value="{{ $kh->MaKH }}" {{ old('MaKH') == $kh->MaKH ? 'selected' : '' }}>
+                    {{ $kh->MaKH }} - {{ $kh->TenKH }}
+                </option>
+            @endforeach
+        </select>
+        @error('MaKH')
+            <span class="text-danger">{{ $message }}</span>
+        @enderror
+
+
+        <!-- Số tài khoản -->
+
+        <label class="form-label">Số tài khoản</label>
+        <select name="SoTK" id="soTK" class="form-control">
+            <option value="">---Chọn tài khoản---</option>
+            @foreach ($khachhangs as $kh)
+                <option value="{{ $kh->SoTK }}" data-makh="{{ $kh->MaKH }}">
+                    {{ $kh->SoTK }}
+                </option>
+            @endforeach
+        </select>
+
 
         <button type="submit" class="btn btn-primary">Thêm Thẻ</button>
         <a href="{{ route('the.index') }}" class="btn btn-secondary">Quay Lại</a>

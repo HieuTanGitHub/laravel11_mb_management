@@ -25,7 +25,7 @@
                 </button>
             </div>
         @endif
-        <form action="{{ route('giaodich.thanhtoanhoadon.store') }}" method="POST">
+        <form id="formthanhtoanhoadon" action="{{ route('giaodich.thanhtoanhoadon.store') }}" method="POST">
             @csrf
             <div class="row mb-3">
                 <div class="col-md-3">
@@ -39,7 +39,8 @@
                 </div>
                 <div class="col-md-3">
                     <label>Người tạo</label>
-                    <input type="text" class="form-control" readonly value="{{ Session::get('TenDangNhap') }}" readonly>
+                    <input type="text" name="NguoiTao" class="form-control" readonly
+                        value="{{ Session::get('TenDangNhap') }}" readonly>
                 </div>
                 <div class="col-md-3">
                     <label>Điểm giao dịch</label>
@@ -77,7 +78,8 @@
                     <select name="SoTK" class="form-control chonsotaikhoan">
                         <option>---Chọn tài khoản---</option>
                         @foreach ($khachhang as $key => $kh)
-                            <option value="{{ $kh->khach?->SoTK }}">{{ $kh->khach?->SoTK }}</option>
+                            <option value="{{ $kh->khach?->SoTK }}">{{ $kh->khach?->SoTK }} - {{ $kh->khach?->TenKH }}
+                            </option>
                         @endforeach
                     </select>
                 </div>
@@ -140,4 +142,41 @@
         </form>
 
     </div>
+    <!-- Modal -->
+    <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Xác nhận thông tin thanh toán hóa đơn</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body" id="modalContent">
+                    <!-- Nội dung đổ vào đây -->
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ</button>
+                    <button type="button" class="btn btn-primary" id="btnConfirmSubmit">Xác nhận</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <style>
+        #modalContent ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #modalContent li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+        }
+
+        #modalContent li strong {
+            color: #333;
+            min-width: 150px;
+        }
+    </style>
 @endsection

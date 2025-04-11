@@ -44,7 +44,7 @@
 
                 <div class="col-md-6">
                     <label class="form-label">Doanh Thu</label>
-                    <input type="number" name="DoanhThu" class="form-control" value="{{ old('DoanhThu') }}">
+                    <input type="number" name="DoanhThu" min="1" class="form-control" value="{{ old('DoanhThu') }}">
                     @error('DoanhThu')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -121,7 +121,7 @@
                 </div>
                 <div class="col-md-6">
                     <label class="form-label">Số Tài Khoản</label>
-                    <input type="text" name="SoTK" class="form-control" value="{{ old('SoTK') }}">
+                    <input type="text" name="SoTK" class="form-control" readonly value="{{ rand(0000, 9999) }}">
                     @error('SoTK')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

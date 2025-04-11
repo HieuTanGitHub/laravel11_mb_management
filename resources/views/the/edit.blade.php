@@ -9,8 +9,8 @@
 
         <div class="mb-3">
             <label for="SoThe" class="form-label">Số Thẻ</label>
-            <input type="text" class="form-control" id="SoThe" name="SoThe" value="{{ old('SoThe', $the->SoThe) }}"
-                required>
+            <input type="text" class="form-control" readonly id="SoThe" name="SoThe"
+                value="{{ old('SoThe', $the->SoThe) }}" required>
         </div>
 
         <div class="mb-3">
@@ -21,13 +21,13 @@
 
         <div class="mb-3">
             <label for="NgayHetHan" class="form-label">Ngày Hết Hạn</label>
-            <input type="date" class="form-control" id="NgayMo" name="NgayMo"
+            <input type="date" class="form-control" id="NgayMo" name="NgayHetHan"
                 value="{{ old('NgayMo', \Carbon\Carbon::parse($the->NgayHetHan)->format('Y-m-d')) }}" required>
         </div>
 
         <div class="mb-3">
             <label for="NgayDong" class="form-label">Ngày Đóng</label>
-            <input type="date" class="form-control" id="NgayMo" name="NgayMo"
+            <input type="date" class="form-control" id="NgayMo" name="NgayDong"
                 value="{{ old('NgayMo', \Carbon\Carbon::parse($the->NgayDong)->format('Y-m-d')) }}" required>
         </div>
 
@@ -68,13 +68,13 @@
 
         <div class="mb-3">
             <label for="SoTK" class="form-label">Số Tài Khoản</label>
-            <input type="text" class="form-control" id="SoTK" name="SoTK" value="{{ old('SoTK', $the->SoTK) }}"
-                required>
+            <input type="text" class="form-control" readonly id="SoTK" name="SoTK"
+                value="{{ old('SoTK', $the->SoTK) }}" required>
         </div>
 
         <div class="mb-3">
             <label for="NgayTao" class="form-label">Ngày Tạo</label>
-            <input type="date" class="form-control" id="NgayMo" name="NgayMo"
+            <input type="date" class="form-control" id="NgayMo" name="NgayTao"
                 value="{{ old('NgayMo', \Carbon\Carbon::parse($the->NgayTao)->format('Y-m-d')) }}" required>
         </div>
 

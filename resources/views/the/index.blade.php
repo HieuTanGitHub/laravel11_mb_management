@@ -32,12 +32,10 @@
                     <td>{{ $the->khachhang->TenKH ?? 'N/A' }}</td>
                     <td>{{ $the->SoTK }}</td>
                     <td>
-                        @if ($the->getTrangThaiAttribute() == 'Còn hạn')
+                        @if (\Carbon\Carbon::parse($the->NgayHetHan)->format('Y-m-d') >= now()->format('Y-m-d'))
                             <span class="badge bg-success">Còn hạn</span>
-                        @elseif ($the->getTrangThaiAttribute() == 'Hết hạn')
-                            <span class="badge bg-danger">Hết hạn</span>
                         @else
-                            <span class="badge bg-secondary">Đã đóng</span>
+                            <span class="badge bg-danger">Hết hạn</span>
                         @endif
                     </td>
                     <td>

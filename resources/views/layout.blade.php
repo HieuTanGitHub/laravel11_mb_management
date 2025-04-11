@@ -8,7 +8,10 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('fe/css/style.css') }}">
+
     <style>
         .sidebar.collapsed {
             width: 2px;
@@ -209,6 +212,11 @@
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
+    <!-- JS -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
     <script>
         function toggleSidebar() {
             document.getElementById("sidebar").classList.toggle("collapsed");
@@ -428,6 +436,137 @@
                 error: function() {
                     alert('Không thể load dữ liệu');
                 }
+            });
+        });
+    </script>
+    <script>
+        // Khi chọn MaKH => chọn SoTK tương ứng
+        $('#maKH').on('change', function() {
+            var maKH = $(this).val();
+            $('#soTK option').each(function() {
+                if ($(this).data('makh') == maKH) {
+                    $(this).prop('selected', true);
+                } else {
+                    $(this).prop('selected', false);
+                }
+            });
+        });
+
+        // Khi chọn SoTK => chọn MaKH tương ứng
+        $('#soTK').on('change', function() {
+            var maKH = $(this).find(':selected').data('makh');
+            $('#maKH option').each(function() {
+                if ($(this).val() == maKH) {
+                    $(this).prop('selected', true);
+                } else {
+                    $(this).prop('selected', false);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('.chonsotaikhoan').select2({
+                placeholder: "---Chọn tài khoản---",
+                allowClear: true,
+                width: '100%'
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#formruttien').on('submit', function(e) {
+                e.preventDefault(); // chặn submit
+
+                var data = {
+                    'Mã giao dịch': $('input[name="MaGDRutTien"]').val(),
+                    'Ngày tạo': $('input[name="NgayTao"]').val(),
+                    'Người tạo': $('input[name="MaNV"]').val(),
+                    'Điểm GD': $('input[name="ViTri"]').val(),
+                    'Số tài khoản': $('select[name="SoTK"] option:selected').text(),
+                    'Số tiền rút': $('input[name="SoTienRut"]').val(),
+                    'Phí GD': $('input[name="PhiGiaoDich"]').val(),
+                    'Nội dung': $('textarea[name="NoiDung"]').val()
+                };
+
+                var html = '<ul class="ul_ruttien">';
+                $.each(data, function(k, v) {
+                    html += '<li><strong>' + k + ': </strong>' + v + '</li>';
+                });
+                html += '</ul>';
+
+                $('#modalContent').html(html);
+                $('#confirmModal').modal('show'); // show modal
+
+                $('#btnConfirmSubmit').off('click').on('click', function() {
+                    e.currentTarget.submit(); // submit form thật
+                })
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#formguitien').on('submit', function(e) {
+                e.preventDefault(); // chặn submit
+
+                var data = {
+                    'Mã giao dịch': $('input[name="MaGDGuiTien"]').val(),
+                    'Ngày tạo': $('input[name="NgayTao"]').val(),
+                    'Người tạo': $('input[name="MaNV"]').val(),
+                    'Điểm GD': $('input[name="ViTri"]').val(),
+                    'Số tài khoản': $('select[name="SoTK"] option:selected').text(),
+                    'Số tiền gửi': $('input[name="SoTienGui"]').val(),
+                    'Phí GD': $('input[name="PhiGiaoDich"]').val(),
+                    'Nội dung': $('textarea[name="NoiDung"]').val()
+                };
+
+                var html = '<ul>';
+                $.each(data, function(k, v) {
+                    html += '<li><strong>' + k + ': </strong>' + v + '</li>';
+                });
+                html += '</ul>';
+
+                $('#modalContent').html(html);
+                $('#confirmModal').modal('show'); // show modal
+
+                $('#btnConfirmSubmit').off('click').on('click', function() {
+                    e.currentTarget.submit(); // submit form thật
+                })
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#formthanhtoanhoadon').on('submit', function(e) {
+                e.preventDefault(); // chặn submit
+
+                var data = {
+                    'Mã giao dịch': $('input[name="MaGDThanhToan"]').val(),
+                    'Ngày tạo': $('input[name="NgayTao"]').val(),
+                    'Ngân hàng': $('input[name="NganHang"]').val(),
+                    'Loại Hóa Đơn': $('select[name="LoaiHD"] option:selected').text(),
+                    'Nhà cung cấp': $('select[name="NCC"] option:selected').text(),
+                    'Số Hóa Đơn': $('input[name="SoHD"]').val(),
+                    'Người tạo': $('input[name="NguoiTao"]').val(),
+                    'Điểm GD': $('input[name="DiemGD"]').val(),
+                    'Số tài khoản': $('select[name="SoTK"] option:selected').text(),
+                    'Số tiền gửi': $('input[name="SoTienGui"]').val(),
+                    'Phí GD': $('input[name="PhiGiaoDich"]').val(),
+                    'Nội dung': $('textarea[name="NoiDung"]').val()
+                };
+
+                var html = '<ul>';
+                $.each(data, function(k, v) {
+                    html += '<li><strong>' + k + ': </strong>' + v + '</li>';
+                });
+                html += '</ul>';
+
+                $('#modalContent').html(html);
+                $('#confirmModal').modal('show'); // show modal
+
+                $('#btnConfirmSubmit').off('click').on('click', function() {
+                    e.currentTarget.submit(); // submit form thật
+                })
             });
         });
     </script>

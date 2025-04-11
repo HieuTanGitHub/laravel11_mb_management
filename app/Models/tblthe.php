@@ -40,30 +40,4 @@ class tblthe extends Model
     {
         return $this->belongsTo(tblkhachhang::class, 'MaKH', 'MaKH');
     }
-
-    public function getTrangThaiAttribute()
-    {
-        // Kiểm tra nếu không có ngày hết hạn
-        if (!$this->NgayHetHan || !$this->NgayMo) {
-            return 'Chưa xác định hạn';
-        }
-
-        $ngayMo = Carbon::parse($this->NgayMo);
-        $ngayHetHan = Carbon::parse($this->NgayHetHan);
-        $ngayHienTai = Carbon::now();
-
-        // Nếu đã đóng thẻ
-        if ($this->NgayDong) {
-            return 'Đã đóng';
-        }
-
-        // Kiểm tra trạng thái của thẻ
-        if ($ngayHienTai->lt($ngayMo)) {
-            return 'Chưa mở';
-        } elseif ($ngayHienTai->lt($ngayHetHan)) {
-            return 'Còn hạn';
-        } else {
-            return 'Hết hạn';
-        }
-    }
 }

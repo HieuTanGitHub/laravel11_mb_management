@@ -29,7 +29,7 @@
                 <select name="MaNV" class="form-control" required>
                     <option value="">Chọn mã nhân viên</option>
                     @foreach ($nhanvien as $nv)
-                        <option value="{{ $nv->MaNV }}" {{ old('MaNV') == $nv->MaNV ? 'selected' : '' }}>
+                        <option value="{{ $nv->MaNV }}" {{ Session::get('MaNV') == $nv->MaNV ? 'selected' : '' }}>
                             {{ $nv->HoTen }}
                         </option>
                     @endforeach
@@ -42,11 +42,11 @@
             <!-- Mã khách hàng -->
             <div class="col-md-4">
                 <label class="form-label">Mã khách hàng</label>
-                <select name="MaKH" class="form-control" required>
+                <select name="MaKH" id="maKH" class="form-control" required>
                     <option value="">Chọn mã khách hàng</option>
                     @foreach ($khachhang as $kh)
                         <option value="{{ $kh->MaKH }}" {{ old('MaKH') == $kh->MaKH ? 'selected' : '' }}>
-                            {{ $kh->TenKH }}
+                            {{ $kh->MaKH }} - {{ $kh->TenKH }}
                         </option>
                     @endforeach
                 </select>
@@ -54,28 +54,39 @@
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
+
             <!-- Số tài khoản -->
             <div class="col-md-4">
                 <label class="form-label">Số tài khoản</label>
-                <input type="number" name="SoTK" class="form-control" value="{{ old('SoTK') }}" required>
-                @error('SoTK')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                <select name="SoTK" id="soTK" class="form-control">
+                    <option value="">---Chọn tài khoản---</option>
+                    @foreach ($khachhang as $kh)
+                        <option value="{{ $kh->SoTK }}" data-makh="{{ $kh->MaKH }}">
+                            {{ $kh->SoTK }}
+                        </option>
+                    @endforeach
+                </select>
             </div>
+
             <!-- Số dư tài khoản -->
             <div class="col-md-4">
                 <label class="form-label">Số dư tài khoản</label>
-                <input type="number" name="SoDuTK" class="form-control" value="{{ old('SoDuTK') }}" required>
+                <input type="number" name="SoDuTK" min="100000" value="70000000" class="form-control"
+                    value="{{ old('SoDuTK') }}" required>
                 @error('SoDuTK')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
             </div>
-
+            @php
+                $ngayTao = \Carbon\Carbon::now()->format('Y-m-d');
+                $ngayMo = \Carbon\Carbon::now()->format('Y-m-d');
+                $ngayDong = \Carbon\Carbon::now()->addYears(5)->format('Y-m-d');
+            @endphp
 
             <!-- Ngày mở -->
             <div class="col-md-4">
                 <label class="form-label">Ngày mở</label>
-                <input type="date" name="NgayMo" class="form-control" value="{{ old('NgayMo') }}" required>
+                <input type="date" name="NgayMo" class="form-control" value="{{ old('NgayMo', $ngayMo) }}" required>
                 @error('NgayMo')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -84,7 +95,7 @@
             <!-- Ngày đóng -->
             <div class="col-md-4">
                 <label class="form-label">Ngày đóng</label>
-                <input type="date" name="NgayDong" class="form-control" value="{{ old('NgayDong') }}">
+                <input type="date" name="NgayDong" class="form-control" value="{{ old('NgayDong', $ngayDong) }}">
                 @error('NgayDong')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror
@@ -108,7 +119,7 @@
             <!-- Ngày tạo -->
             <div class="col-md-4">
                 <label class="form-label">Ngày tạo</label>
-                <input type="date" name="NgayTao" class="form-control" value="{{ old('NgayTao') }}" required>
+                <input type="date" name="NgayTao" class="form-control" value="{{ $ngayTao }}" required>
                 @error('NgayTao')
                     <span class="text-danger">{{ $message }}</span>
                 @enderror

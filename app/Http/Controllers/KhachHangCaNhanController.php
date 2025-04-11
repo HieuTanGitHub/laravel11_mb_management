@@ -10,6 +10,7 @@ use App\Models\tblkhachhang;
 use App\Models\tblquanhuyen;
 use App\Models\tblphuongxa;
 use App\Models\tbltinhthanhpho;
+
 use Session;
 
 class KhachHangCaNhanController extends Controller
