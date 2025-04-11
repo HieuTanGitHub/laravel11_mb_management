@@ -38,6 +38,7 @@
                 $active_giaodich = in_array(Request::segment(1), [
                     'ruttien',
                     'themruttien',
+                    'them-thanhtoanhoadon',
                     'themguitien',
                     'guitien',
                     'chuyenkhoan',
@@ -63,9 +64,11 @@
                         <i class="fa-solid fa-right-left"></i> Chuyển khoản
                     </a>
 
-                    <a class="nav-link {{ Request::segment(1) == 'thanhtoanhoadon' ? 'active' : '' }}"
+                    <a class="nav-link {{ Request::segment(1) == 'thanhtoanhoadon' || Request::segment(1) == 'them-thanhtoanhoadon' ? 'active' : '' }}"
                         href="{{ route('giaodich.thanhtoanhoadon') }}">
+
                         <i class="fa-solid fa-file-invoice-dollar"></i> Thanh toán hóa đơn
+
                     </a>
 
                 </nav>
