@@ -35,7 +35,8 @@
 
                 <div class="col-md-3">
                     <label>Ngày tạo</label>
-                    <input type="text" class="form-control" name="NgayTao" readonly value="{{ \Carbon\Carbon::now() }}">
+                    <input type="text" class="form-control" name="NgayTao" readonly
+                        value="{{ \Carbon\Carbon::now('Asia/Ho_Chi_Minh') }}">
                 </div>
 
                 <div class="col-md-3">

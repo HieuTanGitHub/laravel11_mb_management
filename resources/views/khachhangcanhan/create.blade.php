@@ -10,7 +10,8 @@
     <div class="row g-3">
         <div class="col-md-6">
             <label class="form-label">Ngày tạo</label>
-            <input type="text" readonly name="NgayTao" class="form-control" value="{{ \Carbon\Carbon::now() }}">
+            <input type="text" readonly name="NgayTao" class="form-control"
+                value="{{ \Carbon\Carbon::now('Asia/Ho_Chi_Minh') }}">
 
         </div>
         <div class="col-md-6">
@@ -29,7 +30,7 @@
             <div class="row g-3">
                 <div class="col-md-6">
                     <label class="form-label">Mã Khách Hàng</label>
-                    <input type="text" name="MaKH" readonly class="form-control" value="KHCN{{ rand(0000, 9999) }}">
+                    <input type="text" name="MaKH" readonly class="form-control" value="{{ $maKH }}">
                     @error('MaKH')
                         <span class="text-danger">{{ $message }}</span>
                     @enderror

@@ -480,7 +480,31 @@
         });
     </script>
     <script>
+        function printBienLai() {
+            var printContents = document.getElementById('bienLaiContent').innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = `
+        <html>
+        <head>
+            <title>In Biên Lai</title>
+            <style>
+                body { font-family: Arial, sans-serif; padding: 20px; }
+                h5 { text-align: center; margin-bottom: 20px; }
+                ul { list-style: none; padding: 0; }
+                li { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px dashed #ccc; }
+                span { font-weight: bold; }
+            </style>
+        </head>
+        <body>${printContents}</body>
+        </html>
+    `;
+
+            window.print();
+            window.location.reload(); // In xong load lại
+        }
         $(document).ready(function() {
+
             $('#formruttien').on('submit', function(e) {
                 e.preventDefault(); // chặn submit
 
@@ -505,8 +529,64 @@
                 $('#confirmModal').modal('show'); // show modal
 
                 $('#btnConfirmSubmit').off('click').on('click', function() {
-                    e.currentTarget.submit(); // submit form thật
-                })
+                    let $form = $('#formruttien');
+
+                    // Submit thật
+                    $form.off('submit').on('submit', function(e) {
+                        e.preventDefault();
+
+                        $.ajax({
+                            url: $form.attr('action'),
+                            method: $form.attr('method'),
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content')
+                            },
+                            data: $form.serialize(),
+                            success: function(res) {
+                                if (res.success) {
+                                    $('#confirmModal').modal('hide');
+
+                                    // Lấy dữ liệu mới nhất bằng ID vừa lưu
+                                    $.ajax({
+                                        url: '/ruttien/receipt/' + res
+                                            .id, // route API lấy chi tiết
+                                        method: 'GET',
+                                        success: function(receipt) {
+                                            var html = `
+            <h5 class="text-center mb-3">BIÊN LAI RÚT TIỀN</h5><br/>
+            <ul style="list-style:none; padding:0;">`;
+
+                                            $.each(receipt,
+                                                function(k, v) {
+                                                    html += `
+                <li style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #ccc;">
+                    <span><strong>${k}:</strong></span>
+                    <span>${v}</span>
+                </li>`;
+                                                });
+
+                                            html += `</ul>
+            <div class="text-end mt-3">
+                <button type="button" class="btn btn-primary" onclick="printBienLai()">In Biên Lai</button>
+            </div>`;
+
+                                            $('#bienLaiContent')
+                                                .html(html);
+                                            $('#modalBienLai')
+                                                .modal('show');
+                                        }
+                                    });
+                                }
+                            },
+                            error: function() {
+                                alert('Lưu thất bại!');
+                            }
+                        });
+                    });
+
+                    $form.submit(); // submit
+                });
             });
         });
     </script>

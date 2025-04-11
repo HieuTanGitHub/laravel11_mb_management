@@ -14,6 +14,7 @@ use App\Models\tbltinhthanhpho;
 use App\Models\tblphuongxa;
 use App\Models\tblthanhtoanhoadon;
 use Session;
+use DB;
 
 class GiaoDichController extends Controller
 {
@@ -83,8 +84,21 @@ class GiaoDichController extends Controller
 
     public function themruttien()
     {
+        $lastMaGD = DB::table('tblruttien')
+            ->orderBy('MaGDRutTien', 'desc')
+            ->value('MaGDRutTien');
+
+        if ($lastMaGD) {
+            $number = (int)substr($lastMaGD, 2); // Cắt bỏ "RT"
+            $newNumber = $number + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        $newMaGD = 'RT' . str_pad($newNumber, 10, '0', STR_PAD_LEFT);
+
         $khachhang = tblkhachhangcanhan::with('khach')->get();
-        return view('giaodich.ruttien.create', compact('khachhang'));
+        return view('giaodich.ruttien.create', compact('khachhang', 'newMaGD'));
     }
     public function themguitien()
     {
@@ -154,7 +168,7 @@ class GiaoDichController extends Controller
 
             $SoDuSauRut = $taikhoan->SoDuTK - ($request->SoTienRut + $request->PhiGiaoDich);
 
-            tblruttien::create([
+            $ruttien = tblruttien::create([
                 'MaGDRutTien' => $request->MaGDRutTien,
                 'SoTienRut' => $request->SoTienRut,
                 'PhiGiaoDich' => $request->PhiGiaoDich,
@@ -170,11 +184,33 @@ class GiaoDichController extends Controller
                 'SoDuTK' => $SoDuSauRut
             ]);
 
-            return redirect()->route('giaodich.ruttien')->with('success', 'Rút tiền thành công');
+            //return redirect()->route('giaodich.ruttien')->with('success', 'Rút tiền thành công');
+            return response()->json([
+                'success' => true,
+                'id' => $ruttien->MaGDRutTien  // return id để ajax call tiếp
+            ]);
         } catch (\Exception $e) {
 
             return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());
         }
+    }
+    public function showReceipt($id)
+    {
+        $ruttien = tblruttien::where('MaGDRutTien', $id)->first();
+        $khachhang = tblkhachhang::where('SoTK', $ruttien->SoTK)->first();
+
+        return [
+            'Mã GD' => $ruttien->MaGDRutTien,
+            'Tên Người Rút' => $khachhang->TenKH,
+            'SDT' => $khachhang->SDT,
+            'CCCD' => $khachhang->CCCD,
+            'DiaChi' => $khachhang->DiaChi,
+            'Số TK' => $ruttien->SoTK,
+            'Số Tiền Rút' => number_format($ruttien->SoTienRut) . ' VNĐ',
+            'Ngày Tạo' => $ruttien->NgayTao,
+            'Người Tạo' => $ruttien->MaNV,
+            // field khác
+        ];
     }
     public function storeguitien(Request $request)
     {

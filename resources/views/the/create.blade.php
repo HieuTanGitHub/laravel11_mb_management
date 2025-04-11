@@ -12,11 +12,13 @@
 
         <div class="mb-3">
             <label class="form-label">Số Thẻ</label>
-            <input type="text" name="SoThe" class="form-control" readonly value="{{ rand(0000, 9999) }}" required>
+            <input type="text" name="SoThe" class="form-control" readonly
+                value="{{ mt_rand(1000000000000000, 9999999999999999) }}" required>
             @error('SoThe')
                 <span class="text-danger">{{ $message }}</span>
             @enderror
         </div>
+
         @php
             $ngayTao = \Carbon\Carbon::now()->format('Y-m-d');
             $ngayMo = \Carbon\Carbon::now()->format('Y-m-d');

@@ -61,7 +61,8 @@ class LoaiTKController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $loaitk = tblloaitaikhoan::where('MaLoaiTK', $id)->first();
+        return view('loaitk.edit', compact('loaitk'));
     }
 
     /**
@@ -69,7 +70,16 @@ class LoaiTKController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'TenLoaiTK' => 'required|string|max:255',
+        ]);
+
+        $loaitk = tblloaitaikhoan::where('MaLoaiTK', $id)->first();
+        $loaitk->TenLoaiTK = $request->TenLoaiTK;
+        $loaitk->MaLoaiTK = $request->MaLoaiTK;
+        $loaitk->save();
+
+        return redirect()->route('loaitk.index')->with('success', 'Cập nhật thành công!');
     }
 
     /**

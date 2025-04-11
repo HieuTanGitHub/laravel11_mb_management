@@ -30,12 +30,13 @@
             <div class="row g-3">
                 <div class="col-md-3">
                     <label>Mã giao dịch</label>
-                    <input type="text" class="form-control" name="MaGDRutTien" readonly value="{{ rand(0000, 9999) }}">
+                    <input type="text" class="form-control" name="MaGDRutTien" readonly value="{{ $newMaGD }}">
                 </div>
 
                 <div class="col-md-3">
                     <label>Ngày tạo</label>
-                    <input type="text" class="form-control" name="NgayTao" readonly value="{{ \Carbon\Carbon::now() }}">
+                    <input type="text" class="form-control" name="NgayTao" readonly
+                        value="{{ \Carbon\Carbon::now('Asia/Ho_Chi_Minh') }}">
                 </div>
 
                 <div class="col-md-3">
@@ -111,7 +112,7 @@
             </div>
         </form>
     </div>
-    <!-- Modal -->
+    <!-- Modal Xác nhận -->
     <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -129,6 +130,18 @@
             </div>
         </div>
     </div>
+    <!-- Modal Biên Lai -->
+    <div class="modal fade" id="modalBienLai" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" id="bienLaiContent">
+                    <div class="receipt-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <style>
         #modalContent ul {
             list-style: none;
@@ -146,6 +159,36 @@
         #modalContent li strong {
             color: #333;
             min-width: 150px;
+        }
+
+        #bienLaiContent ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #bienLaiContent li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+        }
+
+        #bienLaiContent li strong {
+            color: #333;
+            min-width: 150px;
+        }
+
+        div#bienLaiContent h5 {
+            text-align: center;
+            font-weight: bold;
+            color: blue;
+        }
+
+        div#bienLaiContent ul {
+            margin: 0;
+            padding: 0;
+            text-align: left;
         }
     </style>
 @endsection

@@ -104,7 +104,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/loaitk/create', [LoaiTKController::class, 'create'])->name('loaitk.create');
     Route::get('/loaitk/edit/{id}', [LoaiTKController::class, 'edit'])->name('loaitk.edit');
     Route::post('/loaitk/store', [LoaiTKController::class, 'store'])->name('loaitk.store');
-    Route::post('/loaitk/update/{id}', [LoaiTKController::class, 'update'])->name('loaitk.update');
+    Route::put('/loaitk/update/{id}', [LoaiTKController::class, 'update'])->name('loaitk.update');
     Route::delete('/loaitk/{id}', [LoaiTKController::class, 'destroy'])->name('loaitk.destroy');
 
     //loaithe
@@ -144,6 +144,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/themruttien', [GiaoDichController::class, 'themruttien'])->name('giaodich.themruttien');
     Route::post('/storeruttien', [GiaoDichController::class, 'storeruttien'])->name('giaodich.ruttien.store');
     Route::get('/giaodich/ruttien/chitiet', [GiaoDichController::class, 'showChiTiet'])->name('giaodich.ruttien.chitiet');
+    Route::get('/ruttien/receipt/{id}', [GiaoDichController::class, 'showReceipt']);
 
     Route::get('/guitien', [GiaoDichController::class, 'guitien'])->name('giaodich.guitien');
     Route::get('/themguitien', [GiaoDichController::class, 'themguitien'])->name('giaodich.themguitien');

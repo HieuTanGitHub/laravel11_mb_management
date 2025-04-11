@@ -12,6 +12,7 @@ use App\Models\tblphuongxa;
 use App\Models\tbltinhthanhpho;
 use App\Models\tblloaithe;
 use Session;
+use DB;
 
 class KhachHangCaNhanController extends Controller
 {
@@ -51,11 +52,23 @@ class KhachHangCaNhanController extends Controller
      */
     public function create()
     {
+        $last = DB::table('tblkhachhangcanhan')->orderBy('MaKH', 'desc')->first();
+
+        if ($last) {
+            // Lấy số cuối cùng + 1
+            $lastNumber = (int)substr($last->MaKH, 4); // bỏ KHCN
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        $maKH = str_pad($newNumber, 8, '0', STR_PAD_LEFT);
+
         $loaithe = tblloaithe::all();
         $city = tbltinhthanhpho::all();
         $loaikhachhang = tblloaikhachhang::all();
         $loaitaikhoan = tblloaitaikhoan::all();
-        return view('khachhangcanhan.create', compact('loaitaikhoan', 'loaikhachhang', 'city', 'loaithe'));
+        return view('khachhangcanhan.create', compact('maKH', 'loaitaikhoan', 'loaikhachhang', 'city', 'loaithe'));
     }
 
     /**
