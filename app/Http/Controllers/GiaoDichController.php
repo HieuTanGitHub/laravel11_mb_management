@@ -18,6 +18,90 @@ use DB;
 
 class GiaoDichController extends Controller
 {
+    public function search_chitiet(Request $request)
+    {
+        $MaGD = $request->MaGD;
+
+        // Kiểm tra trong bảng Rút Tiền
+        $rutTien = DB::table('tblruttien')
+            ->join('tblkhachhang', 'tblruttien.SoTK', '=', 'tblkhachhang.SoTK')
+            ->join('tblthe', 'tblruttien.SoTK', '=', 'tblthe.SoTK')
+            ->where('tblruttien.MaGDRutTien', $MaGD)
+            ->select('tblruttien.*', 'tblkhachhang.*', 'tblthe.SoThe')
+            ->first();
+
+        if ($rutTien) {
+            $LoaiGD = 'Rút Tiền';
+            return view('giaodich.ruttien.search_chitiet', compact('rutTien', 'LoaiGD'));
+        }
+
+        // Kiểm tra trong bảng Gửi Tiền
+        $guiTien = DB::table('tblguitien')
+            ->join('tblkhachhang', 'tblguitien.SoTK', '=', 'tblkhachhang.SoTK')
+            ->join('tblthe', 'tblguitien.SoTK', '=', 'tblthe.SoTK')
+            ->where('tblguitien.MaGDGuiTien', $MaGD)
+            ->select('tblguitien.*', 'tblkhachhang.*', 'tblthe.SoThe')
+            ->first();
+
+        if ($guiTien) {
+            $LoaiGD = 'Gửi Tiền';
+            return view('giaodich.ruttien.search_chitiet', compact('guiTien', 'LoaiGD'));
+        }
+
+        // Kiểm tra trong bảng Thanh Toán
+        $thanhToan = DB::table('thanh_toan')
+            ->join('khach_hang', 'thanh_toan.SoTK', '=', 'khach_hang.SoTK')
+            ->join('the', 'thanh_toan.SoTK', '=', 'the.SoTK')
+            ->where('thanh_toan.MaGDThanhToan', $MaGD)
+            ->select('thanh_toan.*', 'khach_hang.*', 'the.SoThe')
+            ->first();
+
+        if ($thanhToan) {
+            $LoaiGD = 'Thanh Toán';
+            return view('giaodich.chitiet', compact('thanhToan', 'LoaiGD', 'khachhang', 'the'));
+        }
+
+        return response()->json(['error' => 'Không tìm thấy giao dịch'], 404);
+    }
+
+
+
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $ruttien = tblruttien::where('NgayTao', 'like', "%$keyword%")
+            ->select('MaGDRutTien as MaGD', 'NgayTao')
+            ->get()
+            ->map(function ($item) {
+                $item->LoaiGD = 'Rút Tiền';
+                return $item;
+            });
+
+        $guitien = tblguitien::where('NgayTao', 'like', "%$keyword%")
+            ->select('MaGDGuiTien as MaGD', 'NgayTao')
+            ->get()
+            ->map(function ($item) {
+                $item->LoaiGD = 'Gửi Tiền';
+                return $item;
+            });
+
+        $thanhtoan = tblthanhtoanhoadon::where('NgayTao', 'like', "%$keyword%")
+            ->select('MaGDThanhToan as MaGD', 'NgayTao')
+            ->get()
+            ->map(function ($item) {
+                $item->LoaiGD = 'Thanh Toán Hóa Đơn';
+                return $item;
+            });
+
+        $giaodich = $ruttien->merge($guitien)->merge($thanhtoan)->sortByDesc('NgayTao');
+
+
+
+
+        return view('giaodich.ruttien.search', compact('giaodich', 'keyword'));
+    }
+
     public function ruttien()
     {
         $ruttien = tblruttien::orderBy('NgayTao', 'DESC')->get();
@@ -115,6 +199,7 @@ class GiaoDichController extends Controller
 
         $newMaGD = 'GT' . str_pad($newNumber, 10, '0', STR_PAD_LEFT);
         $khachhang = tblkhachhangcanhan::with('khach')->get();
+
         return view('giaodich.guitien.create', compact('khachhang', 'newMaGD'));
     }
     public function getThongTinKhach($id)
@@ -284,7 +369,7 @@ class GiaoDichController extends Controller
 
                 'TenNG' => $request->TenNG,
                 'SDTNG' => $request->SDTNG,
-                'TongTien' => $request->TongTien,
+                'TongTien' => str_replace('.', '', $request->TongTien),
                 'NganHang' => $request->NganHang
             ]);
 

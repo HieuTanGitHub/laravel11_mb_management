@@ -23,6 +23,14 @@ class NhanVienController extends Controller
         $nhanviens = tblnhanvien::with('phongban', 'chucvu')->get();
         return view('nhanvien.index', compact('nhanviens'));
     }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
+
+        $nhanviens = tblnhanvien::with('phongban', 'chucvu')->where('HoTen', 'like', '%' . $keyword . '%')->get();
+
+        return view('nhanvien.search', compact('nhanviens', 'keyword'));
+    }
 
 
     /**

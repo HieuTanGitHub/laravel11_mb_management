@@ -7,7 +7,7 @@
         <input type="text" name="keyword" placeholder="Nhập số điện thoại hoặc CCCD để tìm kiếm...">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
-    <h4>DANH SÁCH KHÁCH HÀNG CÁ NHÂN</h4>
+    <h4>TÌM KIẾM KHÁCH HÀNG CÁ NHÂN : {{ $keyword }}</h4>
 
     <!-- Hiển thị thông báo thành công -->
     @if (session('success'))

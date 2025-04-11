@@ -2,8 +2,8 @@
 
 @section('content')
     <h2 class="title">QUẢN LÝ THÔNG TIN CHUNG GIAO DỊCH</h2>
-    <form class="search-form" action="" method="GET">
-        <input type="text" name="keyword" placeholder="0308119826XXX">
+    <form class="search-form" action="{{ route('giaodich.search') }}" method="GET">
+        <input type="text" name="keyword" placeholder="Nhập thời gian giao dịch tìm kiếm...">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
 

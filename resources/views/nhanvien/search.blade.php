@@ -5,7 +5,7 @@
         <input type="text" name="keyword" placeholder="Nhập Tên nhân viên để tìm kiếm...">
         <button type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
     </form>
-    <h4>Danh sách nhân viên</h4>
+    <h4>Tìm kiếm nhân viên : {{ $keyword }}</h4>
     <!-- Display success message if available -->
     @if (session('success'))
         <div class="alert alert-success">

@@ -46,7 +46,22 @@ class KhachHangCaNhanController extends Controller
         $khachhangs = tblkhachhangcanhan::with('khach')->get();
         return view('khachhangcanhan.index', compact('khachhangs'));
     }
+    public function search(Request $request)
+    {
+        $keyword = $request->input('keyword');
 
+        $khachhangs = tblkhachhangcanhan::with(['khach' => function ($query) use ($keyword) {
+            $query->where('SDT', 'like', "%$keyword%")
+                ->orWhere('CCCD', 'like', "%$keyword%");
+        }])
+            ->whereHas('khach', function ($query) use ($keyword) {
+                $query->where('SDT', 'like', "%$keyword%")
+                    ->orWhere('CCCD', 'like', "%$keyword%");
+            })
+            ->get();
+
+        return view('khachhangcanhan.search', compact('khachhangs', 'keyword'));
+    }
     /**
      * Show the form for creating a new resource.
      */

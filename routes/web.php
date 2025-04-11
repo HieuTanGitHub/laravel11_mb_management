@@ -69,6 +69,7 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::delete('/khachhangcanhan/{id}', [KhachHangCaNhanController::class, 'destroy'])->name('khachhangcanhan.destroy');
     Route::get('/khachhangcanhan/show/{id}', [KhachHangCaNhanController::class, 'show']);
     Route::post('/select-diachi', [KhachHangCaNhanController::class, 'select_diachi']);
+    Route::get('/khachhang-search', [KhachHangCaNhanController::class, 'search'])->name('khachhangcanhan.search');
 
     //khachhangdoanhnghiep
     Route::get('/khachhangdoanhnghiep', [KhachHangDoanhNghiepController::class, 'index'])->name('khachhangdoanhnghiep.index');
@@ -84,6 +85,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::post('/nhanvien/store', [NhanVienController::class, 'store'])->name('nhanvien.store');
     Route::put('/nhanvien/update/{id}', [NhanVienController::class, 'update'])->name('nhanvien.update');
     Route::delete('/nhanvien/{id}', [NhanVienController::class, 'destroy'])->name('nhanvien.destroy');
+    Route::get('/nhanvien-search', [NhanVienController::class, 'search'])->name('nhanvien.search');
+
     //phongban
     Route::get('/phongban', [PhongBanController::class, 'index'])->name('phongban.index');
     Route::get('/phongban/create', [PhongBanController::class, 'create'])->name('phongban.create');
@@ -145,6 +148,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::post('/storeruttien', [GiaoDichController::class, 'storeruttien'])->name('giaodich.ruttien.store');
     Route::get('/giaodich/ruttien/chitiet', [GiaoDichController::class, 'showChiTiet'])->name('giaodich.ruttien.chitiet');
     Route::get('/ruttien/receipt/{id}', [GiaoDichController::class, 'showReceipt']);
+    Route::get('/giaodich-search', [GiaoDichController::class, 'search'])->name('giaodich.search');
+    Route::get('/giaodich-search-chitiet', [GiaoDichController::class, 'search_chitiet'])->name('giaodich.search.chitiet');
 
     Route::get('/guitien/receipt/{id}', [GiaoDichController::class, 'showReceiptGuiTien']);
 

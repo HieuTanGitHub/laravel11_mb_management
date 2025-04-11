@@ -44,6 +44,7 @@
                     'guitien',
                     'chuyenkhoan',
                     'thanhtoanhoadon',
+                    'giaodich-search',
                 ])
                     ? 'show'
                     : '';
@@ -136,7 +137,11 @@
                 <i class="fa-solid fa-chevron-down"></i>
             </a>
             @php
-                $active_khachhang = in_array(Request::segment(1), ['khachhangcanhan', 'khachhangdoanhnghiep'])
+                $active_khachhang = in_array(Request::segment(1), [
+                    'khachhangcanhan',
+                    'khachhangdoanhnghiep',
+                    'khachhang-search',
+                ])
                     ? 'show'
                     : '';
             @endphp
@@ -145,9 +150,11 @@
             <div class="collapse menuQL {{ $active_khachhang }}" id="menuKhachHang">
                 <nav class="nav flex-column ms-3">
 
-                    <a class="nav-link {{ Request::segment(1) == 'khachhangcanhan' ? 'active' : '' }}"
-                        href="{{ route('khachhangcanhan.index') }}"><i class="fa-solid fa-user"></i>
-                        Khách hàng cá nhân</a>
+                    <a class="nav-link {{ Request::segment(1) == 'khachhangcanhan' || Request::segment(1) == 'khachhang-search' ? 'active' : '' }}"
+                        href="{{ route('khachhangcanhan.index') }}">
+                        Khách hàng cá nhân
+                    </a>
+
                     <a class="nav-link {{ Request::segment(1) == 'khachhangdoanhnghiep' ? 'active' : '' }}"
                         href="{{ route('khachhangdoanhnghiep.index') }}"><i class="fa-solid fa-industry"></i> SME</a>
                     <a class="nav-link {{ Request::segment(1) == 'khachhangdoanhnghiep' ? 'active' : '' }}"
@@ -175,7 +182,7 @@
                     </a>
                 </nav>
             </div>
-            <a class="nav-link {{ Request::segment(1) == 'nhanvien' ? 'active' : '' }}"
+            <a class="nav-link {{ Request::segment(1) == 'nhanvien' || Request::segment(1) == 'nhanvien-search' ? 'active' : '' }}"
                 href="{{ route('nhanvien.index') }}"><i class="fa-solid fa-user-tie"></i> Quản lý nhân
                 viên</a>
             <a class="nav-link" href="#"><i class="fa-solid fa-clock-rotate-left"></i> Lịch sử hoạt động</a>
@@ -771,7 +778,7 @@
                 let phiGiaoDich = parseFloat($('#PhiGiaoDich').val()) || 0;
                 let tongTien = soTienGui - phiGiaoDich;
 
-                $('#TongTien').val(tongTien.toLocaleString('vi-VN')); // format đẹp
+                $('#TongTien').val(tongTien); // format đẹp
             }
 
             $('#SoTienGui, #PhiGiaoDich').on('keyup change', function() {
@@ -830,6 +837,26 @@
             });
             $("#NgayHetHan").focus(function() {
                 $(".ui-datepicker-calendar").hide();
+            });
+        });
+    </script>
+    <script>
+        $(document).on('click', '.btn-edit-chitiet-search', function() {
+            let id = $(this).data('id');
+
+            $.ajax({
+                url: '{{ route('giaodich.search.chitiet') }}',
+                type: 'GET',
+                data: {
+                    MaGD: id
+                },
+                success: function(res) {
+                    $('#info').html(res);
+                    $('#modal-chitiet').modal('show');
+                },
+                error: function() {
+                    alert('Không thể load dữ liệu');
+                }
             });
         });
     </script>
