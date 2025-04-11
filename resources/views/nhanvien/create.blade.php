@@ -20,7 +20,7 @@
         <div class="row g-3">
             <div class="col-md-4">
                 <label class="form-label">Mã nhân viên</label>
-                <input type="text" name="MaNV" class="form-control" value="{{ old('MaNV') }}">
+                <input type="text" name="MaNV" class="form-control" value="{{ $maNV }}" readonly>
             </div>
             <div class="col-md-4">
                 <label class="form-label">Họ và tên</label>

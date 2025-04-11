@@ -148,6 +148,17 @@
             </div>
         </div>
     </div>
+    <!-- Modal Biên Lai -->
+    <div class="modal fade" id="modalBienLai" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div class="modal-body" id="bienLaiContent">
+                    <div class="receipt-container"></div>
+                </div>
+            </div>
+        </div>
+    </div>
     <style>
         #modalContent ul {
             list-style: none;
@@ -165,6 +176,36 @@
         #modalContent li strong {
             color: #333;
             min-width: 150px;
+        }
+
+        #bienLaiContent ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        #bienLaiContent li {
+            padding: 8px 0;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            justify-content: space-between;
+            font-size: 15px;
+        }
+
+        #bienLaiContent li strong {
+            color: #333;
+            min-width: 150px;
+        }
+
+        div#bienLaiContent h5 {
+            text-align: center;
+            font-weight: bold;
+            color: blue;
+        }
+
+        div#bienLaiContent ul {
+            margin: 0;
+            padding: 0;
+            text-align: left;
         }
     </style>
 @endsection

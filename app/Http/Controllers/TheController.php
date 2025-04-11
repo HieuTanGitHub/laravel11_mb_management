@@ -103,9 +103,9 @@ class TheController extends Controller
         // Validate dữ liệu đầu vào
         $request->validate([
             'SoThe' => 'required|string|max:255',
-            'NgayMo' => 'required|date',
-            'NgayHetHan' => 'required|date',
-            'NgayDong' => 'nullable|date',
+            'NgayMo' => 'required',
+            'NgayHetHan' => 'required',
+            'NgayDong' => 'nullable',
             'MaLoaiThe' => 'required|string|max:255',
             'MaNV' => 'required|string|max:255',
             'MaKH' => 'required|string|max:255',

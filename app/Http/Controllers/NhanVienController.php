@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\tblnhanvien;
 use App\Models\tblphongban;
 use App\Models\tblchucvu;
+use DB;
 
 class NhanVienController extends Controller
 {
@@ -29,11 +30,23 @@ class NhanVienController extends Controller
      */
     public function create()
     {
+        $lastNV = DB::table('tblnhanvien')
+            ->orderBy('MaNV', 'desc')
+            ->first();
+
+        if ($lastNV) {
+            $lastNumber = (int)substr($lastNV->MaNV, 2); // lấy 3 số cuối
+            $newNumber = $lastNumber + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        $maNV = 'NV' . str_pad($newNumber, 3, '0', STR_PAD_LEFT); // đủ 3 số
         // Pass all PhongBan and ChucVu records to the view for dropdown selection
         $phongbans = tblphongban::all();
         $chucvus = tblchucvu::all();
 
-        return view('nhanvien.create', compact('phongbans', 'chucvus'));
+        return view('nhanvien.create', compact('phongbans', 'chucvus', 'maNV'));
     }
 
     /**

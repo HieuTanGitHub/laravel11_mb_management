@@ -10,14 +10,6 @@
     <form action="{{ route('the.store') }}" method="POST">
         @csrf
 
-        <div class="mb-3">
-            <label class="form-label">Số Thẻ</label>
-            <input type="text" name="SoThe" class="form-control" readonly
-                value="{{ mt_rand(1000000000000000, 9999999999999999) }}" required>
-            @error('SoThe')
-                <span class="text-danger">{{ $message }}</span>
-            @enderror
-        </div>
 
         @php
             $ngayTao = \Carbon\Carbon::now()->format('Y-m-d');
@@ -97,7 +89,20 @@
                 </option>
             @endforeach
         </select>
+        <div class="mb-3">
+            <label class="form-label">Số Thẻ</label>
+            <select name="SoThe" id="SoThe" class="form-control">
+                @foreach ($khachhangs as $kh)
+                    <option value="{{ $kh->SoThe }}" data-makh="{{ $kh->MaKH }}">
+                        {{ $kh->SoThe }}
+                    </option>
+                @endforeach
+            </select>
 
+            @error('SoThe')
+                <span class="text-danger">{{ $message }}</span>
+            @enderror
+        </div>
 
         <button type="submit" class="btn btn-primary">Thêm Thẻ</button>
         <a href="{{ route('the.index') }}" class="btn btn-secondary">Quay Lại</a>

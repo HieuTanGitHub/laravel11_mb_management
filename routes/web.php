@@ -146,6 +146,8 @@ Route::middleware([CheckLogin::class])->group(function () {
     Route::get('/giaodich/ruttien/chitiet', [GiaoDichController::class, 'showChiTiet'])->name('giaodich.ruttien.chitiet');
     Route::get('/ruttien/receipt/{id}', [GiaoDichController::class, 'showReceipt']);
 
+    Route::get('/guitien/receipt/{id}', [GiaoDichController::class, 'showReceiptGuiTien']);
+
     Route::get('/guitien', [GiaoDichController::class, 'guitien'])->name('giaodich.guitien');
     Route::get('/themguitien', [GiaoDichController::class, 'themguitien'])->name('giaodich.themguitien');
     Route::post('/storeguitien', [GiaoDichController::class, 'storeguitien'])->name('giaodich.guitien.store');

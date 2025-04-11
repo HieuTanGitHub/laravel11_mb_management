@@ -224,6 +224,21 @@ class GiaoDichController extends Controller
             // field khác
         ];
     }
+    public function showReceiptGuiTien($id)
+    {
+        $guitien = tblguitien::where('MaGDGuiTien', $id)->first();
+        $khachhang = tblkhachhang::where('SoTK', $guitien->SoTK)->first();
+
+        return [
+
+            'Số Tài khoản người nhận' => $guitien->SoTK,
+            'Số tiền gửi' => $guitien->SoTienGui,
+            'Lệ phí' => $guitien->PhiGiaoDich,
+            'Tổng tiền' => $guitien->TongTien,
+            'Ngày Tạo' => $guitien->NgayTao,
+            // field khác
+        ];
+    }
     public function storeguitien(Request $request)
     {
         // dd($request->all());
@@ -256,7 +271,7 @@ class GiaoDichController extends Controller
 
             $SoDuSauGui = ($taikhoan->SoDuTK + $request->TongTien);
 
-            tblguitien::create([
+            $guitien = tblguitien::create([
                 'MaGDGuiTien' => $request->MaGDGuiTien,
                 'SoTienGui' => $request->SoTienGui,
                 'PhiGiaoDich' => $request->PhiGiaoDich,
@@ -277,7 +292,11 @@ class GiaoDichController extends Controller
                 'SoDuTK' => $SoDuSauGui
             ]);
 
-            return redirect()->route('giaodich.guitien')->with('success', 'Rút tiền thành công');
+            //return redirect()->route('giaodich.guitien')->with('success', 'Rút tiền thành công');
+            return response()->json([
+                'success' => true,
+                'id' => $guitien->MaGDGuiTien  // return id để ajax call tiếp
+            ]);
         } catch (\Exception $e) {
 
             return back()->with('error', 'Có lỗi xảy ra: ' . $e->getMessage());

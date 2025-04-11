@@ -25,8 +25,8 @@
             @foreach ($theList as $the)
                 <tr>
                     <td>{{ $the->SoThe }}</td>
-                    <td>{{ date('d/m/Y', strtotime($the->NgayMo)) }}</td>
-                    <td>{{ date('d/m/Y', strtotime($the->NgayHetHan)) }}</td>
+                    <td>{{ date('m/Y', strtotime($the->NgayMo)) }}</td>
+                    <td>{{ date('m/Y', strtotime($the->NgayHetHan)) }}</td>
                     <td>{{ $the->loaiThe->TenLoaiThe ?? 'N/A' }}</td>
                     <td>{{ $the->nhanvien->HoTen ?? 'N/A' }}</td>
                     <td>{{ $the->khachhang->TenKH ?? 'N/A' }}</td>

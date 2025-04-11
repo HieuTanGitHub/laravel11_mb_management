@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <!-- CSS -->
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" href="{{ asset('fe/css/style.css') }}">
 
     <style>
@@ -215,8 +216,10 @@
             @yield('content')
         </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery-month-picker@4.0.0/dist/MonthPicker.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- JS -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
@@ -308,7 +311,7 @@
                         $('#TenKH').val(res.TenKH);
                         $('#CCCD').val(res.CCCD);
                         $('#SoThe').val(res.SoThe);
-                        $('#SoThe').val(res.SoThe);
+
                         $('#SoDuTK').val(res.SoDuTK);
                         $('#SDT').val(res.SDT);
                         $('#MaKH').val(res.MaKH);
@@ -318,7 +321,7 @@
                         $('#TenKH').val('');
                         $('#CCCD').val('');
                         $('#SoThe').val('');
-                        $('#SoThe').val('');
+
                         $('#SoDuTK').val('');
                         $('#SDT').val('');
                         $('#MaKH').val('');
@@ -330,7 +333,7 @@
                 $('#TenKH').val('');
                 $('#CCCD').val('');
                 $('#SoThe').val('');
-                $('#SoThe').val('');
+
                 $('#SoDuTK').val('');
                 $('#SDT').val('');
                 $('#MaKH').val('');
@@ -450,6 +453,13 @@
         $('#maKH').on('change', function() {
             var maKH = $(this).val();
             $('#soTK option').each(function() {
+                if ($(this).data('makh') == maKH) {
+                    $(this).prop('selected', true);
+                } else {
+                    $(this).prop('selected', false);
+                }
+            });
+            $('#SoThe option').each(function() {
                 if ($(this).data('makh') == maKH) {
                     $(this).prop('selected', true);
                 } else {
@@ -593,7 +603,7 @@
     <script>
         $(document).ready(function() {
             $('#formguitien').on('submit', function(e) {
-                e.preventDefault(); // chặn submit
+                e.preventDefault();
 
                 var data = {
                     'Mã giao dịch': $('input[name="MaGDGuiTien"]').val(),
@@ -617,14 +627,108 @@
                 html += '</ul>';
 
                 $('#modalContent').html(html);
-                $('#confirmModal').modal('show'); // show modal
+                $('#confirmModal').modal('show');
 
+                // Bắt sự kiện xác nhận
                 $('#btnConfirmSubmit').off('click').on('click', function() {
-                    e.currentTarget.submit(); // submit form thật
-                })
+                    let $form = $('#formguitien');
+
+                    // Submit thật
+                    $form.off('submit').on('submit', function(e) {
+                        e.preventDefault();
+
+                        $.ajax({
+                            url: $form.attr('action'),
+                            method: $form.attr('method'),
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr(
+                                    'content')
+                            },
+                            data: $form.serialize(),
+                            success: function(res) {
+                                if (res.success) {
+                                    $('#confirmModal').modal('hide');
+
+                                    // Lấy dữ liệu mới nhất bằng ID vừa lưu
+                                    $.ajax({
+                                        url: '/guitien/receipt/' + res
+                                            .id, // route API lấy chi tiết
+                                        method: 'GET',
+                                        success: function(receipt) {
+                                            var html = `
+            <h5 class="text-center mb-3">BIÊN LAI GỬI TIỀN</h5><br/>
+            <ul style="list-style:none; padding:0;">`;
+
+                                            $.each(receipt,
+                                                function(k, v) {
+                                                    html += `
+                <li style="display:flex; justify-content:space-between; padding:6px 0; border-bottom:1px dashed #ccc;">
+                    <span><strong>${k}:</strong></span>
+                    <span>${v}</span>
+                </li>`;
+                                                });
+
+                                            html += `</ul>
+            <div class="text-end mt-3">
+                <button type="button" class="btn btn-primary" onclick="printBienLai()">In Biên Lai</button>
+            </div>`;
+
+                                            $('#bienLaiContent')
+                                                .html(html);
+                                            $('#modalBienLai')
+                                                .modal('show');
+                                        }
+                                    });
+                                }
+                            },
+                            error: function() {
+                                alert('Lưu thất bại!');
+                            }
+                        });
+                    });
+
+                    $form.submit(); // submit
+                });
             });
         });
+
+        function showReceipt(data) {
+            var html = '<h5 style="text-align:center;">BIÊN LAI GỬI TIỀN</h5><ul>';
+
+            html += '<li><strong>Mã giao dịch: </strong>' + data.MaGDGuiTien + '</li>';
+            html += '<li><strong>Ngày tạo: </strong>' + data.NgayTao + '</li>';
+            html += '<li><strong>Người tạo: </strong>' + data.MaNV + '</li>';
+            html += '<li><strong>Điểm GD: </strong>' + data.ViTri + '</li>';
+            html += '<li><strong>Tên người gửi: </strong>' + data.TenNG + '</li>';
+            html += '<li><strong>SDT người gửi: </strong>' + data.SDTNG + '</li>';
+            html += '<li><strong>Ngân hàng: </strong>' + data.NganHang + '</li>';
+            html += '<li><strong>Số tài khoản nhận: </strong>' + data.SoTK + '</li>';
+            html += '<li><strong>Số tiền gửi: </strong>' + data.SoTienGui + ' VNĐ</li>';
+            html += '<li><strong>Phí giao dịch: </strong>' + data.PhiGiaoDich + ' VNĐ</li>';
+            html += '<li><strong>Tổng tiền: </strong>' + data.TongTien + ' VNĐ</li>';
+            html += '<li><strong>Nội dung: </strong>' + data.NoiDung + '</li>';
+
+            html += '</ul>';
+
+            html += '<div class="text-center mt-3">';
+            html += '<button class="btn btn-primary" onclick="printBienLai()">In Biên Lai</button>';
+            html += '</div>';
+
+            $('#modalContent').html(html);
+            $('#confirmModal').modal('show');
+        }
+
+        function printBienLai() {
+            var printContents = document.getElementById('modalContent').innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+            window.print();
+            document.body.innerHTML = originalContents;
+            location.reload();
+        }
     </script>
+
     <script>
         $(document).ready(function() {
             $('#formthanhtoanhoadon').on('submit', function(e) {
@@ -676,6 +780,57 @@
 
             // Gọi 1 lần khi load trang
             tinhTongTien();
+        });
+    </script>
+    <script>
+        $(function() {
+            $('#NgayMo').datepicker({
+                dateFormat: 'mm-yy',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+
+                onClose: function(dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+            $('#NgayDong').datepicker({
+                dateFormat: 'mm-yy',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+
+                onClose: function(dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+            $('#NgayHetHan').datepicker({
+                dateFormat: 'mm-yy',
+                changeMonth: true,
+                changeYear: true,
+                showButtonPanel: true,
+
+                onClose: function(dateText, inst) {
+                    var month = $("#ui-datepicker-div .ui-datepicker-month :selected").val();
+                    var year = $("#ui-datepicker-div .ui-datepicker-year :selected").val();
+                    $(this).datepicker('setDate', new Date(year, month, 1));
+                }
+            });
+
+            // Fix chỉ hiện tháng năm khi show
+            $("#NgayMo").focus(function() {
+                $(".ui-datepicker-calendar").hide();
+            });
+            $("#NgayDong").focus(function() {
+                $(".ui-datepicker-calendar").hide();
+            });
+            $("#NgayHetHan").focus(function() {
+                $(".ui-datepicker-calendar").hide();
+            });
         });
     </script>
     @yield('scripts');
