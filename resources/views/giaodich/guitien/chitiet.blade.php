@@ -4,8 +4,20 @@
         <td>{{ $guitien->MaGDGuiTien }}</td>
     </tr>
     <tr>
-        <th>Số Tài Khoản</th>
+        <th>Số Tài Khoản nhận</th>
         <td>{{ $guitien->SoTK }}</td>
+    </tr>
+    <tr>
+        <th>Tên người gửi</th>
+        <td>{{ $guitien->TenNG }}</td>
+    </tr>
+    <tr>
+        <th>SDT gửi</th>
+        <td>{{ $guitien->SDTNG }}</td>
+    </tr>
+    <tr>
+        <th>Ngân Hàng</th>
+        <td>{{ $guitien->NganHang }}</td>
     </tr>
     <tr>
         <th>Chủ Tài Khoản</th>

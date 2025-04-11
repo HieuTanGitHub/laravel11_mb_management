@@ -20,6 +20,11 @@ class tblguitien extends Model
         'ViTri',
         'NgayTao',
         'MaNV',
-        'SoTK'
+        'SoTK',
+        'TenNG',
+        'SDTNG',
+        'TongTien',
+        'NganHang'
+
     ];
 }

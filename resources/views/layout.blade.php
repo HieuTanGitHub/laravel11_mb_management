@@ -600,9 +600,13 @@
                     'Ngày tạo': $('input[name="NgayTao"]').val(),
                     'Người tạo': $('input[name="MaNV"]').val(),
                     'Điểm GD': $('input[name="ViTri"]').val(),
-                    'Số tài khoản': $('select[name="SoTK"] option:selected').text(),
+                    'Tên người gửi': $('input[name="TenNG"]').val(),
+                    'Số điện thoại người gửi': $('input[name="SDTNG"]').val(),
+                    'Ngân Hàng': $('input[name="NganHang"]').val(),
+                    'Số tài khoản nhận': $('select[name="SoTK"] option:selected').text(),
                     'Số tiền gửi': $('input[name="SoTienGui"]').val(),
                     'Phí GD': $('input[name="PhiGiaoDich"]').val(),
+                    'Tổng Tiền': $('input[name="TongTien"]').val(),
                     'Nội dung': $('textarea[name="NoiDung"]').val()
                 };
 
@@ -654,6 +658,24 @@
                     e.currentTarget.submit(); // submit form thật
                 })
             });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            function tinhTongTien() {
+                let soTienGui = parseFloat($('#SoTienGui').val()) || 0;
+                let phiGiaoDich = parseFloat($('#PhiGiaoDich').val()) || 0;
+                let tongTien = soTienGui - phiGiaoDich;
+
+                $('#TongTien').val(tongTien.toLocaleString('vi-VN')); // format đẹp
+            }
+
+            $('#SoTienGui, #PhiGiaoDich').on('keyup change', function() {
+                tinhTongTien();
+            });
+
+            // Gọi 1 lần khi load trang
+            tinhTongTien();
         });
     </script>
     @yield('scripts');

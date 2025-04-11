@@ -102,8 +102,20 @@ class GiaoDichController extends Controller
     }
     public function themguitien()
     {
+        $lastMaGD = DB::table('tblguitien')
+            ->orderBy('MaGDGuiTien', 'desc')
+            ->value('MaGDGuiTien');
+
+        if ($lastMaGD) {
+            $number = (int)substr($lastMaGD, 2); // Cắt bỏ "RT"
+            $newNumber = $number + 1;
+        } else {
+            $newNumber = 1;
+        }
+
+        $newMaGD = 'GT' . str_pad($newNumber, 10, '0', STR_PAD_LEFT);
         $khachhang = tblkhachhangcanhan::with('khach')->get();
-        return view('giaodich.guitien.create', compact('khachhang'));
+        return view('giaodich.guitien.create', compact('khachhang', 'newMaGD'));
     }
     public function getThongTinKhach($id)
     {
@@ -223,6 +235,12 @@ class GiaoDichController extends Controller
                 'NoiDung' => 'required',
                 'PhiGiaoDich' => 'required|numeric',
                 'ViTri' => 'required',
+
+                'TenNG' => 'required',
+                'SDTNG' => 'required',
+                'TongTien' => 'required',
+                'NganHang' => 'required',
+
                 'NgayTao' => 'required|date'
             ]);
 
@@ -236,7 +254,7 @@ class GiaoDichController extends Controller
             //     return back()->with('error', 'Số dư không đủ để rút tiền');
             // }
 
-            $SoDuSauGui = ($taikhoan->SoDuTK + $request->SoTienGui) - $request->PhiGiaoDich;
+            $SoDuSauGui = ($taikhoan->SoDuTK + $request->TongTien);
 
             tblguitien::create([
                 'MaGDGuiTien' => $request->MaGDGuiTien,
@@ -248,6 +266,11 @@ class GiaoDichController extends Controller
                 'NgayTao' => $request->NgayTao,
                 'MaNV' => Session::get('MaNV'),
                 'SoTK' => $request->SoTK,
+
+                'TenNG' => $request->TenNG,
+                'SDTNG' => $request->SDTNG,
+                'TongTien' => $request->TongTien,
+                'NganHang' => $request->NganHang
             ]);
 
             $taikhoan->update([

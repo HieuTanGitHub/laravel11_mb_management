@@ -30,7 +30,7 @@
             <div class="row g-3">
                 <div class="col-md-3">
                     <label>Mã giao dịch</label>
-                    <input type="text" class="form-control" name="MaGDGuiTien" readonly value="{{ rand(0000, 9999) }}">
+                    <input type="text" class="form-control" name="MaGDGuiTien" readonly value="{{ $newMaGD }}">
                 </div>
 
                 <div class="col-md-3">
@@ -52,10 +52,19 @@
             </div>
 
             <h6 class="mt-4 fw-bold">Thông tin giao dịch</h6>
-
+            <div class="row g-3">
+                <div class="col-md-6">
+                    <label>Tên người gửi *</label>
+                    <input type="text" name="TenNG" class="form-control" id="TenNG">
+                </div>
+                <div class="col-md-6">
+                    <label>Số điện thoại người gửi *</label>
+                    <input type="text" name="SDTNG" class="form-control" id="SDTNG">
+                </div>
+            </div>
             <div class="row g-3">
                 <div class="col-md-3">
-                    <label>Số tài khoản *</label>
+                    <label>Số tài khoản người nhận *</label>
                     <select name="SoTK" class="form-control chonsotaikhoan">
                         <option>---Chọn tài khoản---</option>
                         @foreach ($khachhang as $key => $kh)
@@ -69,8 +78,12 @@
                     <label>Tên chủ tài khoản</label>
                     <input type="text" class="form-control" id="TenKH" disabled>
                 </div>
+                <div class="col-md-3">
+                    <label>Ngân hàng *</label>
+                    <input type="text" class="form-control" name="NganHang" value="TP Bank" readonly>
+                </div>
 
-                <div class="col-md-2">
+                {{-- <div class="col-md-2">
                     <label>CCCD</label>
                     <input type="text" class="form-control" id="CCCD" disabled>
                 </div>
@@ -83,17 +96,23 @@
                 <div class="col-md-2">
                     <label>Số dư tài khoản</label>
                     <input type="text" class="form-control" id="SoDuTK" disabled>
-                </div>
+                </div> --}}
 
                 <div class="col-md-3">
                     <label>Số tiền gửi</label>
-                    <input type="number" min="1000000" value="1000000" name="SoTienGui" placeholder=">1tr"
+                    <input type="number" min="1000000" id="SoTienGui" value="1000000" name="SoTienGui" placeholder=">1tr"
                         class="form-control">
                 </div>
 
                 <div class="col-md-3">
                     <label>Phí giao dịch</label>
-                    <input type="text" min="0" name="PhiGiaoDich" value="10000" placeholder="0"
+                    <input type="text" min="0" name="PhiGiaoDich" id="PhiGiaoDich" value="10000" placeholder="0"
+                        class="form-control">
+                </div>
+
+                <div class="col-md-3">
+                    <label>Tổng tiền</label>
+                    <input type="text" min="0" name="TongTien" id="TongTien" placeholder="0"
                         class="form-control">
                 </div>
 
