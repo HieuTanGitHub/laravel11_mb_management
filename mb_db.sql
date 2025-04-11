@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Generation Time: Apr 11, 2025 at 10:22 AM
+-- Generation Time: Apr 11, 2025 at 04:49 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -149,7 +149,8 @@ CREATE TABLE `sessions` (
 --
 
 INSERT INTO `sessions` (`id`, `user_id`, `ip_address`, `user_agent`, `payload`, `last_activity`) VALUES
-('5uoGIQdVmLPJ7Z9jZPvlHqV6P23dd0P6JHAuKt1k', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoiSjVVWWtPYW96SmhVZHM4blQwVEVYbVRid3R5QTU2cDJIM1Z4TmVucSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MzY6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9iYW9jYW90b25ncXVhbiI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fXM6MTE6IlRlbkRhbmdOaGFwIjtzOjEzOiJoaWV1dHJ1b25nMTIzIjtzOjQ6Ik1hTlYiO3M6NToiTlYxMjQiO30=', 1744359609);
+('arehn9jjCTyAqEKHmZ5Nm4CKrJJCJeJVQaDuSpIz', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36', 'YTozOntzOjY6Il90b2tlbiI7czo0MDoiaDFpOTlxMG5FZEQybXlhaUkzemJ6aWdlN0t0VEZJazV6elZ2NVNZNyI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6MjE6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMCI7fXM6NjoiX2ZsYXNoIjthOjI6e3M6Mzoib2xkIjthOjA6e31zOjM6Im5ldyI7YTowOnt9fX0=', 1744380137),
+('vVaTj2pTh4C0o6ptKQgLXbbJmOnTlWNH77YnNC0a', NULL, '127.0.0.1', 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/135.0.0.0 Safari/537.36 Edg/135.0.0.0', 'YTo1OntzOjY6Il90b2tlbiI7czo0MDoidTgySVdDaWMyREdZa0VhNHMwQXByOGlBNnN3bzR2UGlLbXR5eWk1YSI7czo5OiJfcHJldmlvdXMiO2E6MTp7czozOiJ1cmwiO3M6Mzc6Imh0dHA6Ly8xMjcuMC4wLjE6ODAwMC9uaGFudmllbi9jcmVhdGUiO31zOjY6Il9mbGFzaCI7YToyOntzOjM6Im9sZCI7YTowOnt9czozOiJuZXciO2E6MDp7fX1zOjExOiJUZW5EYW5nTmhhcCI7czoxMzoiaGlldXRydW9uZzEyMyI7czo0OiJNYU5WIjtzOjU6Ik5WMTI0Ijt9', 1744382840);
 
 -- --------------------------------------------------------
 
@@ -178,7 +179,7 @@ INSERT INTO `tblchucvu` (`MaCV`, `TenCV`, `MaPB`) VALUES
 --
 
 CREATE TABLE `tblguitien` (
-  `MaGDGuiTien` int(11) NOT NULL,
+  `MaGDGuiTien` varchar(50) NOT NULL,
   `SoTienGui` varchar(50) NOT NULL,
   `PhiGiaoDich` varchar(50) NOT NULL,
   `SoDuSauGui` varchar(50) NOT NULL,
@@ -187,21 +188,32 @@ CREATE TABLE `tblguitien` (
   `NgayTao` varchar(100) NOT NULL,
   `MaNV` varchar(50) NOT NULL,
   `SoTK` varchar(50) NOT NULL,
-  `LoaiGiaoDich` varchar(100) NOT NULL DEFAULT 'Gửi Tiền'
+  `LoaiGiaoDich` varchar(100) NOT NULL DEFAULT 'Gửi Tiền',
+  `TenNG` varchar(50) NOT NULL,
+  `SDTNG` varchar(50) NOT NULL,
+  `TongTien` varchar(50) NOT NULL,
+  `NganHang` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tblguitien`
 --
 
-INSERT INTO `tblguitien` (`MaGDGuiTien`, `SoTienGui`, `PhiGiaoDich`, `SoDuSauGui`, `NoiDung`, `ViTri`, `NgayTao`, `MaNV`, `SoTK`, `LoaiGiaoDich`) VALUES
-(581, '2000000', '10000', '11999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:55:47', 'NV124', '54534534', 'Gửi Tiền'),
-(1359, '1000000', '10000', '11999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:55:44', 'NV124', '54534534', 'Gửi Tiền'),
-(3409, '1000000', '9999', '15990000', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:58:21', 'NV124', '54534534', 'Gửi Tiền'),
-(5090, '1000000', '4444', '16985556', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:58:37', 'NV124', '54534534', 'Gửi Tiền'),
-(5546, '5000000', '50000', '21935556', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 12:07:49', 'NV124', '54534534', 'Gửi Tiền'),
-(6260, '1000000', '66666', '14999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:57:44', 'NV124', '54534534', 'Gửi Tiền'),
-(9703, '2000000', '10000', '13999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:57:20', 'NV124', '54534534', 'Gửi Tiền');
+INSERT INTO `tblguitien` (`MaGDGuiTien`, `SoTienGui`, `PhiGiaoDich`, `SoDuSauGui`, `NoiDung`, `ViTri`, `NgayTao`, `MaNV`, `SoTK`, `LoaiGiaoDich`, `TenNG`, `SDTNG`, `TongTien`, `NganHang`) VALUES
+('1359', '1000000', '10000', '11999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:55:44', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('3409', '1000000', '9999', '15990000', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:58:21', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('5090', '1000000', '4444', '16985556', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:58:37', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('5546', '5000000', '50000', '21935556', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 12:07:49', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('581', '2000000', '10000', '11999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:55:47', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('6260', '1000000', '66666', '14999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:57:44', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('9703', '2000000', '10000', '13999999', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-10 11:57:20', 'NV124', '54534534', 'Gửi Tiền', '', '', '', ''),
+('GT0000000004', '1000000', '10000', '55860990', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:27:41', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank'),
+('GT0000000005', '1000000', '10000', '55861980', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:38:22', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank'),
+('GT0000000006', '1000000', '10000', '55862970', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:38:58', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank'),
+('GT0000000007', '1000000', '10000', '55863960', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:44:19', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank'),
+('GT0000000008', '1000000', '10000', '55864950', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:44:47', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank'),
+('GT0000000009', '1000000', '10000', '55865940', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:46:44', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank'),
+('GT0000000010', '1000000', '10000', '55866930', 'Giao Dịch Gửi Tiền Tại Quầy.', 'Tại Quầy', '2025-04-11 20:48:55', 'NV124', '117534534', 'Gửi Tiền', 'Trương Hiếu', '0932023992', '990.000', 'TP Bank');
 
 -- --------------------------------------------------------
 
@@ -230,6 +242,7 @@ CREATE TABLE `tblkhachhang` (
 --
 
 INSERT INTO `tblkhachhang` (`MaKH`, `TenKH`, `SDT`, `CCCD`, `Email`, `DiaChi`, `NgaySinh`, `MaLoaiKH`, `SoTK`, `MaLoaiTK`, `TheCung`, `SoThe`, `LoaiThe`) VALUES
+('00000005', 'Hoàng A Ka4', '0999023111', '125044231113', 'hoangaka4@gmail.com', '01 016 00397', '2025-04-22 00:00:00', NULL, '117534534', 'LTK10', 'có', '7293705842207072', 'LT1'),
 ('KHCN2554', 'Hoàng A Kiều', '0932023923', '075345233432', 'hoangaminhkieu@gmail.com', '04 050 01645', '2025-04-11 00:00:00', 'ML3', '4567666', 'LTK1', 'có', '', ''),
 ('KHCN3361', 'Hoàng A Ka', '0932023119', '125094231113', 'hoangaka@gmail.com', '12 108 03523', '2025-04-11 00:00:00', NULL, '77534534', 'LTK1', 'có', '2459107171937908', 'LT1'),
 ('KHCN6908', 'Hoàng A Lam', '0932023912', '075094233487', 'hoangalam@gmail.com', '06 063 02002', '2025-04-12 00:00:00', 'ML3', '54534511', 'LTK1', 'có', '', ''),
@@ -255,10 +268,11 @@ CREATE TABLE `tblkhachhangcanhan` (
 --
 
 INSERT INTO `tblkhachhangcanhan` (`MaKH`, `NgheNghiep`, `DoanhThu`, `HoSoCaNhan`, `NgayTao`, `MaNV`) VALUES
-('KHCN2554', 'Công Nhân', 6900000, NULL, '2025-04-11 07:46:19', 'NV124'),
-('KHCN3361', 'Công Nhân May', 3500000, NULL, '2025-04-11 07:57:37', 'NV124'),
-('KHCN6908', 'Nhân Viên', 6900000, NULL, '2025-04-11 07:48:09', 'NV124'),
-('KHCN8931', 'Công Nhân', 6900000, NULL, '2025-04-10 16:33:57', 'NV124');
+('000000001', 'Công Nhân', 6900000, NULL, '2025-04-11 11:33:45', 'NV124'),
+('000000002', 'Công Nhân May', 3500000, NULL, '2025-04-11 11:33:49', 'NV124'),
+('000000003', 'Nhân Viên', 6900000, NULL, '2025-04-11 11:33:52', 'NV124'),
+('000000004', 'Công Nhân', 6900000, NULL, '2025-04-11 11:33:57', 'NV124'),
+('00000005', 'Công Nhân May', 3500000, NULL, '2025-04-11 11:48:43', 'NV124');
 
 -- --------------------------------------------------------
 
@@ -361,7 +375,7 @@ CREATE TABLE `tblloaitaikhoan` (
 --
 
 INSERT INTO `tblloaitaikhoan` (`MaLoaiTK`, `TenLoaiTK`) VALUES
-('LTK1', 'Loại tài khoản vay'),
+('LTK10', 'Loại tài khoản vay'),
 ('LTK2', 'Loại tài khoản tiêu dùng'),
 ('LTK3', 'Loại tài khoản tín dụng'),
 ('LTK4', 'Loại tài khoản thế chấp');
@@ -392,7 +406,6 @@ INSERT INTO `tblloaithe` (`MaLoaiThe`, `TenLoaiThe`) VALUES
 --
 
 CREATE TABLE `tblnhanvien` (
-  `id` int(11) NOT NULL,
   `MaNV` varchar(50) NOT NULL,
   `HoTen` varchar(50) NOT NULL,
   `SDT` varchar(12) NOT NULL,
@@ -408,9 +421,10 @@ CREATE TABLE `tblnhanvien` (
 -- Dumping data for table `tblnhanvien`
 --
 
-INSERT INTO `tblnhanvien` (`id`, `MaNV`, `HoTen`, `SDT`, `TenDangNhap`, `MatKhau`, `Email`, `PhanQuyen`, `MaPB`, `MaCV`) VALUES
-(1, 'NV123', 'Hiếu Trương 2', '0932023992', 'hieutruong', '$2y$12$8nMMaTpjtPON0YpuU9qscedBt39lmbOsapjTtzfw4eQX5NIl/broC', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV1'),
-(2, 'NV124', 'Hiếu Trương', '0932023992', 'hieutruong123', '$2y$12$joD4uG6tAAonLd4Mffo4suNojnBvyJGouAJcRw7E0WNi51x1c8C1m', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV2');
+INSERT INTO `tblnhanvien` (`MaNV`, `HoTen`, `SDT`, `TenDangNhap`, `MatKhau`, `Email`, `PhanQuyen`, `MaPB`, `MaCV`) VALUES
+('NV123', 'Hiếu Trương 2', '0932023992', 'hieutruong', '$2y$12$8nMMaTpjtPON0YpuU9qscedBt39lmbOsapjTtzfw4eQX5NIl/broC', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV1'),
+('NV124', 'Hiếu Trương', '0932023992', 'hieutruong123', '$2y$12$joD4uG6tAAonLd4Mffo4suNojnBvyJGouAJcRw7E0WNi51x1c8C1m', 'truongngoctanhieu2018@gmail.com', 'Nhân Viên', 'PB1', 'CV2'),
+('NV125', 'Hiếu Trương 123', '0932023992', 'nguyenhuyen123', '$2y$12$z6cwjrOh1w2/4Ib/M1xHp.CokKqyW8fx1DWXUWPHIKzY77nB91cui', 'hieutruong123@gmail.com', 'Nhân Viên', 'PB1', 'CV2');
 
 -- --------------------------------------------------------
 
@@ -437,7 +451,7 @@ INSERT INTO `tblphongban` (`MaPB`, `TenPB`) VALUES
 --
 
 CREATE TABLE `tblruttien` (
-  `MaGDRutTien` int(50) NOT NULL,
+  `MaGDRutTien` varchar(50) NOT NULL,
   `SoTienRut` varchar(50) NOT NULL,
   `PhiGiaoDich` varchar(50) NOT NULL,
   `SoDuSauRut` varchar(50) DEFAULT NULL,
@@ -454,8 +468,20 @@ CREATE TABLE `tblruttien` (
 --
 
 INSERT INTO `tblruttien` (`MaGDRutTien`, `SoTienRut`, `PhiGiaoDich`, `SoDuSauRut`, `NoiDung`, `NgayTao`, `MaNV`, `ViTri`, `SoTK`, `LoaiGiaoDich`) VALUES
-(7268, '1000000', '10000', '68990000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-10 16:34:47', 'NV124', 'Tại Quầy', '7543', 'Rút Tiền'),
-(9694, '1000000', '10000', '67980000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 06:55:08', 'NV124', 'Tại Quầy', '7543', 'Rút Tiền');
+('RT0000000095', '1000000', '10000', '68990000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:17:34', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000096', '1000000', '10000', '67980000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:23:44', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000097', '1000000', '10000', '66970000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:24:26', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000098', '1000000', '10000', '65960000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:25:27', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000099', '1000000', '10000', '64950000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:26:28', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000100', '1000000', '10000', '63940000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:28:53', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000101', '1000000', '10000', '62930000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:35:23', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000102', '1000000', '10000', '61920000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:37:06', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000103', '1000000', '10000', '60910000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:37:26', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000104', '1000000', '10000', '59900000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:38:45', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000105', '1000000', '10000', '58890000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:40:46', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000106', '1000000', '10000', '57880000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:41:10', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000107', '1000000', '10000', '56870000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:42:41', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền'),
+('RT0000000108', '1000000', '10000', '55860000', 'Giao Dịch Rút Tiền Tại Quầy.', '2025-04-11 19:42:53', 'NV124', 'Tại Quầy', '117534534', 'Rút Tiền');
 
 -- --------------------------------------------------------
 
@@ -480,6 +506,7 @@ CREATE TABLE `tbltaikhoan` (
 --
 
 INSERT INTO `tbltaikhoan` (`SoTK`, `SoDuTK`, `NgayMo`, `NgayDong`, `TrangThai`, `MaLoaiThe`, `MaNV`, `MaKH`, `NgayTao`) VALUES
+('117534534', '55866930', '2025-04-11 00:00:00', '2030-04-11 00:00:00', 1, 'LT1', 'NV124', '00000005', '2025-04-11 00:00:00'),
 ('7543', '67845000', '2025-04-10 00:00:00', '2030-04-10 00:00:00', 1, 'LT1', 'NV123', 'KHCN8931', '2025-04-10 00:00:00');
 
 -- --------------------------------------------------------
@@ -537,7 +564,10 @@ CREATE TABLE `tblthe` (
 --
 
 INSERT INTO `tblthe` (`SoThe`, `NgayMo`, `NgayHetHan`, `NgayDong`, `MaLoaiThe`, `MaNV`, `MaKH`, `SoTK`, `NgayTao`) VALUES
-('2022', '2025-04-10 00:00:00', '2030-04-10 00:00:00', '2030-04-10 00:00:00', 'LT1', 'NV123', 'KHCN8931', '7543', '2025-04-10 16:34:14');
+('2022', '2025-04-10 00:00:00', '2030-04-10 00:00:00', '2030-04-10 00:00:00', 'LT1', 'NV123', 'KHCN8931', '7543', '2025-04-10 16:34:14'),
+('4937', '2025-04-11 00:00:00', '2030-04-11 00:00:00', '2030-04-11 00:00:00', 'LT1', 'NV123', 'KHCN3361', '77534534', '2025-04-11 14:10:21'),
+('7293705842207072', '2025-04-11 00:00:00', '2030-04-11 00:00:00', '2030-04-11 00:00:00', 'LT1', 'NV123', '00000005', '117534534', '2025-04-11 14:42:50'),
+('9239250399172142', '2025-04-11 00:00:00', '2030-04-11 00:00:00', '2030-04-11 00:00:00', 'LT1', 'NV123', '00000005', '117534534', '2025-04-11 11:51:46');
 
 -- --------------------------------------------------------
 
@@ -12678,7 +12708,7 @@ ALTER TABLE `tblloaithe`
 -- Indexes for table `tblnhanvien`
 --
 ALTER TABLE `tblnhanvien`
-  ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`MaNV`);
 
 --
 -- Indexes for table `tblphongban`
@@ -12758,12 +12788,6 @@ ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `tblguitien`
---
-ALTER TABLE `tblguitien`
-  MODIFY `MaGDGuiTien` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9704;
-
---
 -- AUTO_INCREMENT for table `tblkhachhangdoanhnghiep`
 --
 ALTER TABLE `tblkhachhangdoanhnghiep`
@@ -12780,18 +12804,6 @@ ALTER TABLE `tbllichsuhoatdong`
 --
 ALTER TABLE `tblloaihoatdong`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblnhanvien`
---
-ALTER TABLE `tblnhanvien`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `tblruttien`
---
-ALTER TABLE `tblruttien`
-  MODIFY `MaGDRutTien` int(50) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9695;
 
 --
 -- AUTO_INCREMENT for table `tblthanhtoanhoadon`
