@@ -159,5 +159,6 @@ Route::middleware([CheckLogin::class])->group(function () {
     //báo cáo
     Route::get('/baocaotongquan', [DashboardController::class, 'baocaotongquan'])->name('baocaotongquan');
     Route::get('/load-giao-dich-ngay', [DashboardController::class, 'loadGiaoDichTrongNgay']);
+    Route::get('/load-khach-hang-nhom', [DashboardController::class, 'loadKhachHangTheoNhom']);
 });
 require __DIR__ . '/auth.php';

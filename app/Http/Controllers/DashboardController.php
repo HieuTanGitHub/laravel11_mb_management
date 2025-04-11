@@ -52,6 +52,14 @@ class DashboardController extends Controller
             'thanhToan' => $thanhToan,
         ]);
     }
+    public function loadKhachHangTheoNhom()
+    {
+        $caNhan = DB::table('tblkhachhangcanhan')->count();
+
+        return response()->json([
+            'caNhan' => $caNhan,
+        ]);
+    }
 
     public function index()
     {

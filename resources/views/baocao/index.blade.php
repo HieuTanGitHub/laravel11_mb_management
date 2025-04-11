@@ -63,15 +63,17 @@
 
         // 2. Khách hàng theo nhóm
         const ctx2 = document.getElementById('chartKhachHangNhom').getContext('2d');
-        new Chart(ctx2, {
-            type: 'pie',
-            data: {
-                labels: ['Khách hàng cá nhân', 'Khách hàng doanh nghiệp', 'Khách hàng VIP'],
-                datasets: [{
-                    data: [42, 37, 21],
-                    backgroundColor: ['#36A2EB', '#4BC0C0', '#FFCE56']
-                }]
-            }
+        $.get('/load-khach-hang-nhom', function(res) {
+            new Chart(ctx2, {
+                type: 'pie',
+                data: {
+                    labels: ['Khách hàng cá nhân', 'Khách hàng doanh nghiệp', 'Khách hàng VIP'],
+                    datasets: [{
+                        data: [res.caNhan, 0, 0],
+                        backgroundColor: ['#36A2EB', '#4BC0C0', '#FFCE56']
+                    }]
+                }
+            });
         });
 
         // 3. Giao dịch trong ngày
